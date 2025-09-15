@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import Navbar from "../Components/Navbar.jsx";
-import Home from "../Pages/Home";
-import CrearPresupuesto from "../Pages/CrearPresupuesto";
-import VerPresupuestos from "../Pages/VerPresupuestos";
+import Navbar from "./Components/Navbar.jsx";
+import Home from "./Pages/Home";
+import CrearPresupuesto from "./Pages/CrearPresupuesto";
+import VerPresupuestos from "./Pages/VerPresupuestos";
 
 function App() {
   return (
