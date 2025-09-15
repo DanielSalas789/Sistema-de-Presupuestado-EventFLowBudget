@@ -4,10 +4,12 @@ import Home from "./Pages/Home";
 import CrearPresupuesto from "./Pages/CrearPresupuesto";
 import VerPresupuestos from "./Pages/VerPresupuestos";
 
+
 function App() {
   return (
     <div>
-      <Navbar />
+      <Navbar logo/>
+      
       <div className="container">
         <Routes>
           <Route path="/" element={<Home />} />
