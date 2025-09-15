@@ -3,14 +3,12 @@ import Navbar from "./Components/Navbar.jsx";
 import Home from "./Pages/Home";
 import CrearPresupuesto from "./Pages/CrearPresupuesto";
 import VerPresupuestos from "./Pages/VerPresupuestos";
-
+import logo from "./assets/Images/EventFlowBudget.png";
 
 function App() {
   return (
     <div>
-      <Navbar />
-        logo={logo}
-      
+      <Navbar logo={logo} />
       <div className="container">
         <Routes>
           <Route path="/" element={<Home />} />

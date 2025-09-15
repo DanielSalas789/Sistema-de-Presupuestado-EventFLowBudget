@@ -1,13 +1,11 @@
 import React from 'react';
+import "../styles/pages.css";
 
 const Home = () => {
   return (
-    <div>
-       <div className="page">
-      <h2>Bienvenido a EventFlow Budget 🎉</h2>
-      <p>Administra fácilmente presupuestos para eventos y salones.</p>
-      
-    </div>
+    <div className="page">
+      <h1>Bienvenido a EventFlow Budget</h1>
+      <p>Gestiona tus presupuestos de eventos fácilmente.</p>
     </div>
   );
 }

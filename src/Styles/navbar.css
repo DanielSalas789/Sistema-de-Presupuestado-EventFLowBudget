@@ -1,26 +1,28 @@
 .navbar {
-  
-  width: 200px;
-  background-color: #2fa898;
-  position: fixed;
-  height: 100%;
-  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #222;
+  padding: 10px 30px;
 }
 
-.navbar ul {
-  padding: 0;
-
-  list-style: none;
+.navbar img {
+  height: 40px;
+  margin-right: 20px;
 }
 
 .navbar a {
-   display: block;
-  color: black;
-  padding: 16px;
+  color: #fff;
   text-decoration: none;
+  margin-left: 20px;
+  font-weight: bold;
 }
 
-.logo img {
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+.Logo {
   width: 150px;
   display: block;
   margin: 20px auto;

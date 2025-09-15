@@ -1,33 +1,15 @@
-import { Link } from "react-router-dom";
 import "../styles/navbar.css";
-import logo from "./assets/Images/EventFlowBudget.png";
+import { Link } from "react-router-dom";
 
-function Navbar() {
+function Navbar({ logo }) {
   return (
     <nav className="navbar">
-      <h1>
-        <img src={logo} alt="Logo" />
-      </h1>
-      <ul>
-          <img src={EventFlowLogo} alt="EventFlow Logo" style={{ width: "150px" }} />
-        <li className="active">
-          <a href="/">
-            <span>Inicio</span>
-          </a>
-        </li>
-        <li>
-          <Link to="/crear">
-            <a href="/crear"></a>
-            <span>Crear Presupuesto</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/ver">
-            <a href="/ver"></a>
-            <span>Ver Presupuestos</span>
-          </Link>
-        </li>
-      </ul>
+      <img src={logo} alt="EventFlow Budget Logo" />
+      <div>
+        <Link to="/">Inicio</Link>
+        <Link to="/crear">Crear Presupuesto</Link>
+        <Link to="/presupuestos">Ver Presupuestos</Link>
+      </div>
     </nav>
   );
 }
