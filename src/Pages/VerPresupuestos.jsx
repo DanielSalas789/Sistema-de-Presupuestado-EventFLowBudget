@@ -1,5 +1,5 @@
 import { useState } from "react";
-import PresupuestoCard from "../components/PresupuestoCard";
+import PresupuestoCard from "./components/PresupuestoCard";
 
 function VerPresupuestos() {
   // Más adelante puedes traerlos de una API o base de datos
