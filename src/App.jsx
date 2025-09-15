@@ -8,7 +8,8 @@ import VerPresupuestos from "./Pages/VerPresupuestos";
 function App() {
   return (
     <div>
-      <Navbar logo/>
+      <Navbar />
+        logo={logo}
       
       <div className="container">
         <Routes>

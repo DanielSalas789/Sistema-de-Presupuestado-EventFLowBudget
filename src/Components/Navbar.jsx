@@ -9,6 +9,7 @@ function Navbar() {
         <img src={logo} alt="Logo" />
       </h1>
       <ul>
+          <img src={EventFlowLogo} alt="EventFlow Logo" style={{ width: "150px" }} />
         <li className="active">
           <a href="/">
             <span>Inicio</span>
