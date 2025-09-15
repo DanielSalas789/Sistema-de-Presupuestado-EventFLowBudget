@@ -4,7 +4,9 @@ import "../styles/navbar.css";
 function Navbar() {
   return (
     <nav className="navbar">
-      <h1>EventFlow Budget</h1>
+      <h1>
+        logo={<img src={EventFlowLogo} alt="EventFlow Logo" />}
+        </h1>
       <ul>
         <li><Link to="/">Inicio</Link></li>
         <li><Link to="/crear">Crear Presupuesto</Link></li>
