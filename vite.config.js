@@ -1,7 +1,8 @@
+// vite.config.js
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react"; // O el plugin que uses
+import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/Sistema-de-Presupuestado-EventFFlowBudget/"
+  base: "/Sistema-de-Presupuestado-EventFlowBudget/",
 });
