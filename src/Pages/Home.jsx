@@ -1,4 +1,4 @@
-import React  {react} from 'react';
+import React from 'react';
 
 const Home = () => {
   return (
