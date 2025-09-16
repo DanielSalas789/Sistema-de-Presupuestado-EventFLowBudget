@@ -15,6 +15,7 @@ function App() {
         <main className="main-content">
           <Routes>
             <Route path="/" element={<Dashboard />} />
+            <Route Component={Dashboard} path="/dashboard" />
             <Route path="/crear-presupuesto" element={<CrearPresupuesto />} />
             <Route path="/presupuestos" element={<Presupuestos />} />
           </Routes>
