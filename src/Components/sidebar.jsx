@@ -14,14 +14,17 @@ function Sidebar({ logo }) {
       <img src={logo} alt="Logo" className="sidebar-logo" />
 
       <ul className="sidebar-menu">
-        <li>
-          <NavLink  
-           to="/"
+       <li>
+  <NavLink
+    to="/"
     className={({ isActive }) => (isActive ? "active" : "")}
-        onClick={() => setOpenMenu(null)}   {/* 👈 cierre forzado */}>
-            🏠 Inicio
-          </NavLink>
-        </li>
+    onClick={() => setOpenMenu(null)} 
+   
+  >
+    🏠 Inicio
+  </NavLink>
+</li>
+
 
         <li>
           <button
