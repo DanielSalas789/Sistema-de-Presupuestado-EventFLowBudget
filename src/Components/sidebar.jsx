@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "../styles/sidebar.css";
 
 function Sidebar({ logo }) {
@@ -15,39 +15,51 @@ function Sidebar({ logo }) {
 
       <ul className="sidebar-menu">
         <li>
-          <Link to="/">🏠 Inicio</Link>
+          <NavLink to="/" className={({ isActive }) => (isActive ? "active" : "")}>
+            🏠 Inicio
+          </NavLink>
         </li>
 
         <li>
-          <button className="menu-btn" onClick={() => toggleMenu("presupuestos")}>
+          <button
+            className={`menu-btn ${openMenu === "presupuestos" ? "open" : ""}`}
+            onClick={() => toggleMenu("presupuestos")}
+          >
             📊 Presupuestos
           </button>
-          {openMenu === "presupuestos" && (
-            <ul className="submenu">
-              <li>
-                <Link to="/crear">➕ Crear Presupuesto</Link>
-              </li>
-              <li>
-                <Link to="/presupuestos">📋 Ver Presupuestos</Link>
-              </li>
-            </ul>
-          )}
+          <ul className={`submenu ${openMenu === "presupuestos" ? "show" : ""}`}>
+            <li>
+              <NavLink to="/crear" className={({ isActive }) => (isActive ? "active" : "")}>
+                ➕ Crear Presupuesto
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/presupuestos" className={({ isActive }) => (isActive ? "active" : "")}>
+                📋 Ver Presupuestos
+              </NavLink>
+            </li>
+          </ul>
         </li>
 
         <li>
-          <button className="menu-btn" onClick={() => toggleMenu("configuracion")}>
+          <button
+            className={`menu-btn ${openMenu === "configuracion" ? "open" : ""}`}
+            onClick={() => toggleMenu("configuracion")}
+          >
             ⚙️ Configuración
           </button>
-          {openMenu === "configuracion" && (
-            <ul className="submenu">
-              <li>
-                <Link to="/perfil">👤 Perfil</Link>
-              </li>
-              <li>
-                <Link to="/ajustes">🔧 Ajustes</Link>
-              </li>
-            </ul>
-          )}
+          <ul className={`submenu ${openMenu === "configuracion" ? "show" : ""}`}>
+            <li>
+              <NavLink to="/perfil" className={({ isActive }) => (isActive ? "active" : "")}>
+                👤 Perfil
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/ajustes" className={({ isActive }) => (isActive ? "active" : "")}>
+                🔧 Ajustes
+              </NavLink>
+            </li>
+          </ul>
         </li>
       </ul>
     </div>
