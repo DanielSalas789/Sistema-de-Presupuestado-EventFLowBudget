@@ -1,29 +1,49 @@
 .navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;           /* ocupa toda la altura */
+  width: 220px;            /* ancho fijo */
   background: #222;
-  padding: 10px 30px;
+  display: flex;
+  flex-direction: column;  /* apila elementos en columna */
+  align-items: center;
+  padding: 20px 10px;
+  box-sizing: border-box;
+  z-index: 1000;          /* asegura que esté por encima de otros elementos */
+}
+
+.Logo {
+  width: 120px;
+  margin: 20px 0 30px 0;
+}
+
+.navbar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.navbar li {
+  width: 100%;
+}
+
+.navbar a {
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.navbar a:hover {
+  background: #444;
 }
 
 .navbar img {
   height: 40px;
-  margin-right: 20px;
-}
-
-.navbar a {
-  color: #fff;
-  text-decoration: none;
-  margin-left: 20px;
-  font-weight: bold;
-}
-
-.navbar a:hover {
-  text-decoration: underline;
-}
-
-.Logo {
-  width: 150px;
-  display: block;
-  margin: 20px auto;
+  margin-bottom: 20px;
 }
