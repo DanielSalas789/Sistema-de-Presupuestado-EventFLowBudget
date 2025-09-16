@@ -12,20 +12,43 @@ function Sidebar({ logo }) {
   return (
     <div className="sidebar">
       <img src={logo} alt="Logo" className="sidebar-logo" />
-
       <ul className="sidebar-menu">
-       <li>
-  <NavLink
-    to="/"
-    className={({ isActive }) => (isActive ? "active" : "")}
-    onClick={() => setOpenMenu(null)} 
-   
-  >
-    🏠 Inicio
-  </NavLink>
-</li>
-
-
+        <li>
+          <NavLink
+            to="/"
+            className={({ isActive }) => (isActive ? "active" : "")}
+            onClick={() => setOpenMenu(null)}
+          >
+            🏠 Inicio
+          </NavLink>
+        </li>
+        <li>
+          <button
+            className={`menu-btn ${openMenu === "servicios" ? "open" : ""}`}
+            onClick={() => toggleMenu("servicios")}
+          >
+            📚 Servicios
+          </button>
+          <ul className={`submenu ${openMenu === "servicios" ? "show" : ""}`}>
+            <li>
+              <NavLink
+                to="/crear-servicio"
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
+                ➕ Crear Servicio
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/servicios"
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
+                📋 Ver Servicios
+              </NavLink>
+            </li>
+          </ul>
+        </li>
+      
         <li>
           <button
             className={`menu-btn ${openMenu === "presupuestos" ? "open" : ""}`}
@@ -66,7 +89,7 @@ function Sidebar({ logo }) {
               </NavLink>
             </li>
           </ul>
-        </li>
+        </li>  {/* ...otros menús... */}
       </ul>
     </div>
   );
