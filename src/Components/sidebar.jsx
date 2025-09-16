@@ -15,7 +15,10 @@ function Sidebar({ logo }) {
 
       <ul className="sidebar-menu">
         <li>
-          <NavLink to="/" className={({ isActive }) => (isActive ? "active" : "")}>
+          <NavLink  
+           to="/"
+    className={({ isActive }) => (isActive ? "active" : "")}
+        onClick={() => setOpenMenu(null)}   {/* 👈 cierre forzado */}>
             🏠 Inicio
           </NavLink>
         </li>
