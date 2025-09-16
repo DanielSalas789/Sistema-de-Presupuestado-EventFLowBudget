@@ -1,0 +1,74 @@
+/* Sidebar base */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh; 
+  width: 240px;
+  background: #222;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.sidebar-logo {
+  width: 140px;
+  margin-bottom: 30px;
+}
+
+/* Menú principal */
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+
+.sidebar-menu li {
+  width: 100%;
+}
+
+/* Links y botones */
+.sidebar a,
+.menu-btn {
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  text-align: left;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.sidebar a:hover,
+.menu-btn:hover {
+  background: #444;
+}
+
+/* Submenús */
+.submenu {
+  list-style: none;
+  padding-left: 20px;
+  background: #333;
+}
+
+.submenu li a {
+  font-weight: normal;
+  font-size: 14px;
+  padding: 10px 20px;
+}
+
+.submenu li a:hover {
+  background: #555;
+}
+
+/* Ajuste del contenido */
+.container {
+  margin-left: 240px;
+  padding: 20px;
+}
