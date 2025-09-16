@@ -1,29 +1,26 @@
-import { useState } from 'react';
+// App.jsx - Solo UN Router aquí
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Sidebar from './Components/Sidebar';
-import Inicio from './Pages/Home';
-import CrearServicio from './Pages/CrearServicio';
-import VerServicios from './Pages/VerServicios';
-import CrearPresupuesto from './Pages/CrearPresupuesto';
-import VerPresupuestos from './Pages/VerPresupuestos';
-// import Perfil from './Pages/Perfil';
-// import Ajustes from './Pages/Ajustes';
-    import './Styles/App.css';
-
+import CrearPresupuesto from './pages/CrearPresupuesto';
+import Dashboard from './pages/Dashboard';
+import Presupuestos from './Pages/VerPresupuestos';
+import './Styles/App.css';
 function App() {
   return (
-    <div>
-      <Sidebar logo={logo} />
-      <div className="container">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/crear" element={<CrearPresupuesto />} />
-          <Route path="/presupuestos" element={<VerPresupuestos />} />
-          <Route path="/crear-servicio" element={<CrearServicio />} />
-          <Route path="/servicios" element={<Servicios />} />
-        </Routes>
+    // SOLO UN Router en toda la app
+    <Router>
+      <div className="app">
+        <Sidebar />
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/crear-presupuesto" element={<CrearPresupuesto />} />
+            <Route path="/presupuestos" element={<Presupuestos />} />
+          </Routes>
+        </main>
       </div>
-    </div>
+    </Router>
   );
 }
 

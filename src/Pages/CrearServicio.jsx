@@ -1,31 +1,35 @@
-import { useState } from "react";
+import ServiciosForm from '../components/ServiciosForm';
 
-function CrearServicio() {
-  const [nombre, setNombre] = useState("");
-  const [descripcion, setDescripcion] = useState("");
-  const [precio, setPrecio] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Aquí deberías guardar el servicio en tu estado global, backend, etc.
-    alert(`Servicio creado: ${nombre}`);
-    setNombre("");
-    setDescripcion("");
-    setPrecio("");
-  };
-
+function CrearServicio({ onAdd, servicios }) {
   return (
-    <div className="page">
-      <h2>Crear Servicio</h2>
-      <form className="form" onSubmit={handleSubmit}>
-        <label>Nombre</label>
-        <input value={nombre} onChange={e => setNombre(e.target.value)} required />
-        <label>Descripción</label>
-        <input value={descripcion} onChange={e => setDescripcion(e.target.value)} required />
-        <label>Precio</label>
-        <input type="number" value={precio} onChange={e => setPrecio(e.target.value)} required />
-        <button type="submit">Crear</button>
-      </form>
+    <div className="page-container">
+      <div className="page-header">
+        <h1>Crear Nuevo Servicio</h1>
+        <p>Gestiona los servicios personalizados para tus eventos</p>
+      </div>
+      
+      <div className="form-section">
+        <ServiciosForm onAdd={onAdd} />
+      </div>
+
+      {servicios.length > 0 && (
+        <div className="quick-stats">
+          <h3>Resumen de Servicios</h3>
+          <div className="stats-grid">
+            <div className="stat-card">
+              <span className="stat-number">{servicios.length}</span>
+              <span className="stat-label">Total Servicios</span>
+            </div>
+            <div className="stat-card">
+              <span className="stat-number">
+                {new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' })
+                  .format(servicios.reduce((sum, s) => sum + s.precio, 0))}
+              </span>
+              <span className="stat-label">Valor Total</span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
