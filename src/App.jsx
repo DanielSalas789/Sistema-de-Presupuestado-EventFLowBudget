@@ -1,12 +1,14 @@
-import { Routes, Route } from "react-router-dom";
-import Sidebar from "./Components/sidebar.jsx";
-import Home from "./Pages/Home.jsx";
-import CrearPresupuesto from "./Pages/CrearPresupuesto.jsx";
-import VerPresupuestos from "./Pages/VerPresupuestos.jsx";
-import CrearServicio from "./Pages/CrearServicio";
-import Servicios from "./Pages/Servicios.jsx";
-import logo from "./assets/Images/EventFlowBudget.png";
-
+import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Sidebar from './Components/Sidebar';
+import Inicio from './Pages/Home';
+import CrearServicio from './Pages/CrearServicio';
+import VerServicios from './Pages/VerServicios';
+import CrearPresupuesto from './Pages/CrearPresupuesto';
+import VerPresupuestos from './Pages/VerPresupuestos';
+// import Perfil from './Pages/Perfil';
+// import Ajustes from './Pages/Ajustes';
+    import './Styles/App.css';
 
 function App() {
   return (
