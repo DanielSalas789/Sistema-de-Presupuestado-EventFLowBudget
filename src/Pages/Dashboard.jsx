@@ -15,10 +15,10 @@ const Dashboard = () => {
   useEffect(() => {
     // Datos de ejemplo para demostración
     setStats({
-      totalPresupuestos: 24,
-      presupuestosActivos: 12,
-      ingresosTotales: 15420,
-      clientesActivos: 8,
+      totalPresupuestos: 0,
+      presupuestosActivos: 0,
+      ingresosTotales: 0,
+      clientesActivos: 0,
     });
   }, []); // Array de dependencias vacío = se ejecuta solo al montar el componente
 
@@ -59,53 +59,6 @@ const Dashboard = () => {
       <div className="dashboard-header">
         <h1>Dashboard</h1>
         <p>Resumen general de tu negocio</p>
-      </div>
-
-      {/* Grid de tarjetas de estadísticas */}
-      <div className="stats-grid">
-        {/* Tarjeta: Total de Presupuestos */}
-        <div className="stat-card">
-          <div className="stat-icon" style={{ background: "#3498db" }}>
-            <i className="fas fa-file-invoice-dollar"></i>
-          </div>
-          <div className="stat-info">
-            <h3>{stats.totalPresupuestos}</h3>
-            <p>Total Presupuestos</p>
-          </div>
-        </div>
-
-        {/* Tarjeta: Presupuestos Activos */}
-        <div className="stat-card">
-          <div className="stat-icon" style={{ background: "#2ecc71" }}>
-            <i className="fas fa-check-circle"></i>
-          </div>
-          <div className="stat-info">
-            <h3>{stats.presupuestosActivos}</h3>
-            <p>Activos</p>
-          </div>
-        </div>
-
-        {/* Tarjeta: Ingresos Totales */}
-        <div className="stat-card">
-          <div className="stat-icon" style={{ background: "#f39c12" }}>
-            <i className="fas fa-money-bill-wave"></i>
-          </div>
-          <div className="stat-info">
-            <h3>${stats.ingresosTotales.toLocaleString()}</h3>
-            <p>Ingresos Totales</p>
-          </div>
-        </div>
-
-        {/* Tarjeta: Clientes Activos */}
-        <div className="stat-card">
-          <div className="stat-icon" style={{ background: "#e74c3c" }}>
-            <i className="fas fa-users"></i>
-          </div>
-          <div className="stat-info">
-            <h3>{stats.clientesActivos}</h3>
-            <p>Clientes Activos</p>
-          </div>
-        </div>
       </div>
 
       {/* Contenido principal del dashboard */}
@@ -161,6 +114,53 @@ const Dashboard = () => {
               <i className="fas fa-cog"></i>
               <span>Configuración</span>
             </button>
+          </div>
+        </div>
+
+        {/* Grid de tarjetas de estadísticas */}
+        <div className="stats-grid">
+          {/* Tarjeta: Total de Presupuestos */}
+          <div className="stat-card">
+            <div className="stat-icon" style={{ background: "#3498db" }}>
+              <i className="fas fa-file-invoice-dollar"></i>
+            </div>
+            <div className="stat-info">
+              <h3>{stats.totalPresupuestos}</h3>
+              <p>Total Presupuestos</p>
+            </div>
+          </div>
+
+          {/* Tarjeta: Presupuestos Activos */}
+          <div className="stat-card">
+            <div className="stat-icon" style={{ background: "#2ecc71" }}>
+              <i className="fas fa-check-circle"></i>
+            </div>
+            <div className="stat-info">
+              <h3>{stats.presupuestosActivos}</h3>
+              <p>Activos</p>
+            </div>
+          </div>
+
+          {/* Tarjeta: Ingresos Totales */}
+          <div className="stat-card">
+            <div className="stat-icon" style={{ background: "#f39c12" }}>
+              <i className="fas fa-money-bill-wave"></i>
+            </div>
+            <div className="stat-info">
+              <h3>${stats.ingresosTotales.toLocaleString()}</h3>
+              <p>Ingresos Totales</p>
+            </div>
+          </div>
+
+          {/* Tarjeta: Clientes Activos */}
+          <div className="stat-card">
+            <div className="stat-icon" style={{ background: "#e74c3c" }}>
+              <i className="fas fa-users"></i>
+            </div>
+            <div className="stat-info">
+              <h3>{stats.clientesActivos}</h3>
+              <p>Clientes Activos</p>
+            </div>
           </div>
         </div>
       </div>
