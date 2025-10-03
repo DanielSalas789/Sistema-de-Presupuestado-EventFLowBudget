@@ -3,7 +3,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "./Components/Sidebar";
 import CrearPresupuesto from "./pages/CrearPresupuesto";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "../pages/Dashboard";
 import Presupuestos from "./Pages/VerPresupuestos";
 import "./Styles/App.css";
 
