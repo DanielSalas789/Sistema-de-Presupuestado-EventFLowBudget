@@ -1,5 +1,5 @@
 // App.jsx - Solo UN Router aquí
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -9,31 +9,26 @@ import {
 import Sidebar from "./Components/Sidebar";
 
 import Dashboard from "./Pages/Dashboard";
-
 import Home from "./Pages/Home";
 import "./Styles/App.css";
 
-// NUEVOS COMPONENTES
 import Login from "./Pages/Login"; // Página de inicio de sesión
+import AdminPanel from "./Pages/AdminPanel";
+import EmpleadoPanel from "./Pages/EmpleadoPanel";
+import CrearPresupuesto from "./Pages/CrearPresupuesto";
+import Presupuestos from "./Pages/Presupuestos";
 
 function App() {
-  // Estado para el usuario autenticado
   const [usuario, setUsuario] = useState(null);
 
-  // Cargar productos del backend
-
-  // Función para manejar inicio de sesión simulado
   const handleLogin = (tipoUsuario) => {
-    // Simulamos un inicio de sesión exitoso
     setUsuario({ tipo: tipoUsuario });
   };
 
-  // Función para cerrar sesión
   const handleLogout = () => {
     setUsuario(null);
   };
 
-  // Si NO hay usuario logueado, mostramos la página de inicio de sesión
   if (!usuario) {
     return (
       <Router>
@@ -44,19 +39,15 @@ function App() {
     );
   }
 
-  // Si hay usuario logueado, mostramos la interfaz principal
   return (
     <Router>
       <div className="app">
-        {/* Sidebar visible solo si hay sesión */}
         <Sidebar usuario={usuario} onLogout={handleLogout} />
 
         <main className="main-content">
           <Routes>
-            {/* Home general */}
             <Route path="/" element={<Home />} />
 
-            {/* Paneles según tipo de usuario */}
             {usuario.tipo === "administrador" && (
               <Route path="/admin" element={<AdminPanel />} />
             )}
@@ -65,12 +56,10 @@ function App() {
               <Route path="/empleado" element={<EmpleadoPanel />} />
             )}
 
-            {/* Rutas comunes */}
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/crear-presupuesto" element={<CrearPresupuesto />} />
             <Route path="/presupuestos" element={<Presupuestos />} />
 
-            {/* Redirección general */}
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </main>

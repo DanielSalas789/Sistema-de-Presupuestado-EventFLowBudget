@@ -6,7 +6,7 @@ const cors=require('cors');
 
 //Instanciamos expres y definimos el puerto
 const app=express();
-const port=5000;
+const port=3306;
 app.use(cors());
 
 //conexion a la base de datos de mysql

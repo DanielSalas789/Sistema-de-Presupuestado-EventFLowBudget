@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import "../Styles/sidebar.css";
+// Ajuste ruta a archivo CSS con mayúscula
+import "../Styles/Sidebar.css";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -312,6 +313,130 @@ const Sidebar = () => {
               )}
             </React.Fragment>
           ))}
+
+          {/* <li className="active">
+            <Link to="/dashboard">
+              <i className="fas fa-home"></i>
+              <span className="menu-label">Dashboard</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/crear-presupuesto">
+              <i className="fas fa-plus-circle"></i>
+              <span className="menu-label">Crear Presupuesto</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/presupuestos">
+              <i className="fas fa-list"></i>
+              <span className="menu-label">Mis Presupuestos</span>
+            </Link>
+          </li>
+          <li className="submenu-item">
+            <div className="submenu-header">
+              <i className="fas fa-concierge-bell"></i>
+              <span className="menu-label">Servicios</span>
+              <i className="fas fa-chevron-down submenu-arrow"></i>
+            </div>
+            <div className="submenu-content">
+              <ul>
+                <li>
+                  <Link to="/servicios/catering">
+                    <i className="fas fa-utensils"></i>
+                    <span className="submenu-label">Catering</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/servicios/decoracion">
+                    <i className="fas fa-palette"></i>
+                    <span className="submenu-label">Decoración</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/servicios/audio-video">
+                    <i className="fas fa-music"></i>
+                    <span className="submenu-label">Audio & Video</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/servicios/mobiliario">
+                    <i className="fas fa-chair"></i>
+                    <span className="submenu-label">Mobiliario</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/servicios/entretenimiento">
+                    <i className="fas fa-microphone"></i>
+                    <span className="submenu-label">Entretenimiento</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/servicios/transporte">
+                    <i className="fas fa-bus"></i>
+                    <span className="submenu-label">Transporte</span>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li className="submenu-item">
+            <div className="submenu-header">
+              <i className="fas fa-users"></i>
+              <span className="menu-label">Clientes</span>
+              <i className="fas fa-chevron-down submenu-arrow"></i>
+            </div>
+            <div className="submenu-content">
+              <ul>
+                <li>
+                  <Link to="/clientes/lista">
+                    <i className="fas fa-list"></i>
+                    <span className="submenu-label">Lista de Clientes</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/clientes/nuevo">
+                    <i className="fas fa-user-plus"></i>
+                    <span className="submenu-label">Nuevo Cliente</span>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li className="submenu-item">
+            <div className="submenu-header">
+              <i className="fas fa-truck"></i>
+              <span className="menu-label">Proveedores</span>
+              <i className="fas fa-chevron-down submenu-arrow"></i>
+            </div>
+            <div className="submenu-content">
+              <ul>
+                <li>
+                  <Link to="/proveedores/lista">
+                    <i className="fas fa-list"></i>
+                    <span className="submenu-label">Lista de Proveedores</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/proveedores/categorias">
+                    <i className="fas fa-tags"></i>
+                    <span className="submenu-label">Categorías</span>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <Link to="/reportes">
+              <i className="fas fa-chart-bar"></i>
+              <span className="menu-label">Reportes</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/configuracion">
+              <i className="fas fa-cog"></i>
+              <span className="menu-label">Configuración</span>
+            </Link>
+          </li> */}
         </ul>
       </nav>
 
