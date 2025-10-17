@@ -1,21 +1,12 @@
 import React from "react";
 
-const Home = ({ productos }) => {
+function Home({ productos }) {
   return (
-    <div className="page">
-      <h1>Bienvenido a EventFlow Budget</h1>
-      <p>Gestiona tus presupuestos de eventos fácilmente.</p>
-
-      <h2>Lista de Productos</h2>
-      <ul>
-        {productos.map((p) => (
-          <li key={p.id_producto}>
-            {p.nombre} - ${p.precio}
-          </li>
-        ))}
-      </ul>
+    <div className="home-page">
+      <h2>🏠 Bienvenido al Sistema de Cotización de Eventos</h2>
+      <p>Consulta los productos disponibles para tu evento:</p>
     </div>
   );
-};
+}
 
 export default Home;

@@ -26,16 +26,6 @@ DB.connect  ((err)=>{
 
     //declarar RUTAS
 
-    //Ruta para obtener todos los Productos y devolverlos al fornted    
-    app.get('/productos',(req,res) => {
-        const SQL_QUERY ='SELECT * FROM productos';
-        DB.query(SQL_QUERY,(err,results) => {
-            if(err){ 
-                throw err
-            }
-            res.json(results);
-        });
-    });
 
     // echamos a andar el servidor escuchado anteriormente el puerto 3306
     app .listen(port,()=>{

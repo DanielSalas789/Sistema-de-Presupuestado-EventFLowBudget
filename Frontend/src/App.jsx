@@ -1,60 +1,77 @@
 // App.jsx - Solo UN Router aquí
-import React, { use, useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Sidebar from "./Components/Sidebar";
-import CrearPresupuesto from "./pages/CrearPresupuesto";
-import Dashboard from "./pages/Dashboard";
-import Presupuestos from "./Pages/VerPresupuestos";
+
+import Dashboard from "./Pages/Dashboard";
+
 import Home from "./Pages/Home";
 import "./Styles/App.css";
 
+// NUEVOS COMPONENTES
+import Login from "./Pages/Login"; // Página de inicio de sesión
+
 function App() {
-  // Estado para almacenar los productos obtenidos del backend
-  const [productos, setProductos] = useState([]);
-  const fetchProductos = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/productos");
-      if (!response.ok) {
-        throw new Error("Error en la respuesta de la red");
-      }
-      const data = await response.json();
-      setProductos(data);
-    } catch (error) {
-      console.error("Error al obtener los productos:", error);
-    }
+  // Estado para el usuario autenticado
+  const [usuario, setUsuario] = useState(null);
+
+  // Cargar productos del backend
+
+  // Función para manejar inicio de sesión simulado
+  const handleLogin = (tipoUsuario) => {
+    // Simulamos un inicio de sesión exitoso
+    setUsuario({ tipo: tipoUsuario });
   };
 
-  useEffect(() => {
-    fetch("http://localhost:5000/productos")
-      .then((response) => response.json())
-      .then((data) => setProductos(data))
-      .catch((error) =>
-        console.error("Error al obtener los productos:", error)
-      );
-  }, []);
+  // Función para cerrar sesión
+  const handleLogout = () => {
+    setUsuario(null);
+  };
 
+  // Si NO hay usuario logueado, mostramos la página de inicio de sesión
+  if (!usuario) {
+    return (
+      <Router>
+        <Routes>
+          <Route path="*" element={<Login onLogin={handleLogin} />} />
+        </Routes>
+      </Router>
+    );
+  }
+
+  // Si hay usuario logueado, mostramos la interfaz principal
   return (
-    // Configuración principal del enrutador de la aplicación
-    // SOLO existe un Router en toda la app (mejor práctica)
     <Router>
-      {/* Contenedor principal de la aplicación */}
       <div className="app">
-        {/* Componente de barra lateral que se muestra en todas las páginas */}
-        <Sidebar />
+        {/* Sidebar visible solo si hay sesión */}
+        <Sidebar usuario={usuario} onLogout={handleLogout} />
 
-        {/* Contenedor del contenido principal */}
         <main className="main-content">
-          {/* Sistema de rutas de la aplicación */}
           <Routes>
-            {/* Ruta para la página de inicio (dashboard) */}
-            <Route path="/" element={<Home productos={productos} />} />{" "}
-            {/* 👈 Paso productos al Home */}
-            {/* Ruta alternativa para el dashboard */}
-            <Route Component={Dashboard} path="/dashboard" />
-            {/* Ruta para la creación de nuevos presupuestos */}
+            {/* Home general */}
+            <Route path="/" element={<Home />} />
+
+            {/* Paneles según tipo de usuario */}
+            {usuario.tipo === "administrador" && (
+              <Route path="/admin" element={<AdminPanel />} />
+            )}
+
+            {usuario.tipo === "empleado" && (
+              <Route path="/empleado" element={<EmpleadoPanel />} />
+            )}
+
+            {/* Rutas comunes */}
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/crear-presupuesto" element={<CrearPresupuesto />} />
-            {/* Ruta para visualizar el listado de presupuestos */}
             <Route path="/presupuestos" element={<Presupuestos />} />
+
+            {/* Redirección general */}
+            <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </main>
       </div>

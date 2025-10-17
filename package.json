@@ -4,5 +4,8 @@
   },
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix Frontend\" \"node Backend/server.js\""
+  },
+  "dependencies": {
+    "sweetalert2": "^11.26.3"
   }
 }

@@ -1,209 +1,264 @@
-import React, { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import '../Styles/sidebar.css';
+import React, { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import "../Styles/sidebar.css";
 
 const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
+
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState(null);
+  const [usuario, setUsuario] = useState({
+    nombre: "Invitado",
+    tipo: "usuario", // Valores posibles: "administrador", "usuario", "empleado"
+  });
 
-  // Función para toggle submenús (cierra los demás al abrir uno)
+  // 🔹 Cargar datos de usuario desde localStorage
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    if (userData) setUsuario(userData);
+  }, []);
+
+  // 🔹 Alternar submenús
   const toggleSubmenu = (menuKey) => {
-    if (openSubmenu === menuKey) {
-      setOpenSubmenu(null); // Cierra si ya está abierto
-    } else {
-      setOpenSubmenu(menuKey); // Abre y cierra los demás
-    }
+    setOpenSubmenu(openSubmenu === menuKey ? null : menuKey);
   };
 
-  // Cierra todos los submenús al colapsar la sidebar
-  React.useEffect(() => {
-    if (isCollapsed) {
-      setOpenSubmenu(null);
-    }
-  }, [isCollapsed]);
-
-  const menuItems = [
-    {
-      type: 'single',
-      path: '/dashboard',
-      icon: 'fas fa-home',
-      label: 'Dashboard',
-      description: 'Panel principal'
-    },
-    {
-      type: 'submenu',
-      key: 'servicios',
-      icon: 'fas fa-concierge-bell',
-      label: 'Servicios',
-      description: 'Gestión de servicios',
-      subItems: [
-        {
-          path: '/servicios/catering',
-          icon: 'fas fa-utensils',
-          label: 'Catering',
-          description: 'Servicio de alimentos'
-        },
-        {
-          path: '/servicios/decoracion',
-          icon: 'fas fa-palette',
-          label: 'Decoración',
-          description: 'Ambientación y decor'
-        },
-        {
-          path: '/servicios/audio-video',
-          icon: 'fas fa-music',
-          label: 'Audio & Video',
-          description: 'Sonido e iluminación'
-        },
-        {
-          path: '/servicios/mobiliario',
-          icon: 'fas fa-chair',
-          label: 'Mobiliario',
-          description: 'Mesas, sillas, carpas'
-        },
-        {
-          path: '/servicios/entretenimiento',
-          icon: 'fas fa-microphone',
-          label: 'Entretenimiento',
-          description: 'Artistas y shows'
-        },
-        {
-          path: '/servicios/transporte',
-          icon: 'fas fa-bus',
-          label: 'Transporte',
-          description: 'Movilidad y logística'
-        }
-      ]
-    },
-    {
-      type: 'single',
-      path: '/crear-presupuesto',
-      icon: 'fas fa-plus-circle',
-      label: 'Crear Presupuesto',
-      description: 'Nuevo presupuesto'
-    },
-    {
-      type: 'single',
-      path: '/presupuestos',
-      icon: 'fas fa-list',
-      label: 'Mis Presupuestos',
-      description: 'Lista de presupuestos'
-    },
-    {
-      type: 'submenu',
-      key: 'clientes',
-      icon: 'fas fa-users',
-      label: 'Clientes',
-      description: 'Gestión de clientes',
-      subItems: [
-        {
-          path: '/clientes/lista',
-          icon: 'fas fa-list',
-          label: 'Lista de Clientes',
-          description: 'Todos los clientes'
-        },
-        {
-          path: '/clientes/nuevo',
-          icon: 'fas fa-user-plus',
-          label: 'Nuevo Cliente',
-          description: 'Agregar cliente'
-        }
-      ]
-    },
-    {
-      type: 'submenu',
-      key: 'proveedores',
-      icon: 'fas fa-truck',
-      label: 'Proveedores',
-      description: 'Gestión de proveedores',
-      subItems: [
-        {
-          path: '/proveedores/lista',
-          icon: 'fas fa-list',
-          label: 'Lista de Proveedores',
-          description: 'Todos los proveedores'
-        },
-        {
-          path: '/proveedores/categorias',
-          icon: 'fas fa-tags',
-          label: 'Categorías',
-          description: 'Tipos de proveedores'
-        }
-      ]
-    },
-    {
-      type: 'single',
-      path: '/reportes',
-      icon: 'fas fa-chart-bar',
-      label: 'Reportes',
-      description: 'Estadísticas e informes'
-    },
-    {
-      type: 'single',
-      path: '/configuracion',
-      icon: 'fas fa-cog',
-      label: 'Configuración',
-      description: 'Ajustes del sistema'
-    }
-  ];
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    navigate('/login');
-  };
-
+  // 🔹 Colapsar sidebar
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
   };
 
-  // Función para verificar si una ruta está activa (incluyendo subrutas)
-  const isActive = (path) => {
-    return location.pathname === path || location.pathname.startsWith(path + '/');
+  // 🔹 Cerrar sesión
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/login");
   };
 
-  // Auto-abrir el submenú si alguna de sus rutas está activa
-  React.useEffect(() => {
-    const activeSubmenu = menuItems.find(item => 
-      item.type === 'submenu' && 
-      item.subItems.some(subItem => isActive(subItem.path))
+  // 🔹 Determinar si una ruta está activa
+  const isActive = (path) => {
+    return (
+      location.pathname === path || location.pathname.startsWith(path + "/")
     );
-    
-    if (activeSubmenu) {
-      setOpenSubmenu(activeSubmenu.key);
-    }
+  };
+
+  // 🔹 Autoabrir submenú activo
+  useEffect(() => {
+    const activeSubmenu = menuItems.find(
+      (item) =>
+        item.type === "submenu" &&
+        item.subItems?.some((subItem) => isActive(subItem.path))
+    );
+    if (activeSubmenu) setOpenSubmenu(activeSubmenu.key);
   }, [location.pathname]);
 
+  // 🔹 Configuración dinámica del menú según tipo de usuario
+  const baseMenu = [
+    {
+      type: "single",
+      path: "/dashboard",
+      icon: "fas fa-home",
+      label: "Dashboard",
+      description: "Panel principal",
+    },
+    {
+      type: "single",
+      path: "/crear-presupuesto",
+      icon: "fas fa-plus-circle",
+      label: "Crear Presupuesto",
+      description: "Nuevo presupuesto",
+    },
+    {
+      type: "single",
+      path: "/presupuestos",
+      icon: "fas fa-list",
+      label: "Mis Presupuestos",
+      description: "Lista de presupuestos",
+    },
+  ];
+
+  const adminMenu = [
+    {
+      type: "submenu",
+      key: "servicios",
+      icon: "fas fa-concierge-bell",
+      label: "Servicios",
+      description: "Gestión de servicios",
+      subItems: [
+        {
+          path: "/servicios/catering",
+          icon: "fas fa-utensils",
+          label: "Catering",
+          description: "Servicio de alimentos",
+        },
+        {
+          path: "/servicios/decoracion",
+          icon: "fas fa-palette",
+          label: "Decoración",
+          description: "Ambientación y decor",
+        },
+        {
+          path: "/servicios/audio-video",
+          icon: "fas fa-music",
+          label: "Audio & Video",
+          description: "Sonido e iluminación",
+        },
+        {
+          path: "/servicios/mobiliario",
+          icon: "fas fa-chair",
+          label: "Mobiliario",
+          description: "Mesas, sillas, carpas",
+        },
+        {
+          path: "/servicios/entretenimiento",
+          icon: "fas fa-microphone",
+          label: "Entretenimiento",
+          description: "Artistas y shows",
+        },
+        {
+          path: "/servicios/transporte",
+          icon: "fas fa-bus",
+          label: "Transporte",
+          description: "Movilidad y logística",
+        },
+      ],
+    },
+    {
+      type: "submenu",
+      key: "clientes",
+      icon: "fas fa-users",
+      label: "Clientes",
+      description: "Gestión de clientes",
+      subItems: [
+        {
+          path: "/clientes/lista",
+          icon: "fas fa-list",
+          label: "Lista de Clientes",
+          description: "Todos los clientes",
+        },
+        {
+          path: "/clientes/nuevo",
+          icon: "fas fa-user-plus",
+          label: "Nuevo Cliente",
+          description: "Agregar cliente",
+        },
+      ],
+    },
+    {
+      type: "submenu",
+      key: "proveedores",
+      icon: "fas fa-truck",
+      label: "Proveedores",
+      description: "Gestión de proveedores",
+      subItems: [
+        {
+          path: "/proveedores/lista",
+          icon: "fas fa-list",
+          label: "Lista de Proveedores",
+          description: "Todos los proveedores",
+        },
+        {
+          path: "/proveedores/categorias",
+          icon: "fas fa-tags",
+          label: "Categorías",
+          description: "Tipos de proveedores",
+        },
+      ],
+    },
+    {
+      type: "single",
+      path: "/reportes",
+      icon: "fas fa-chart-bar",
+      label: "Reportes",
+      description: "Estadísticas e informes",
+    },
+    {
+      type: "single",
+      path: "/configuracion",
+      icon: "fas fa-cog",
+      label: "Configuración",
+      description: "Ajustes del sistema",
+    },
+  ];
+
+  const empleadoMenu = [
+    {
+      type: "single",
+      path: "/empleado/eventos",
+      icon: "fas fa-calendar-check",
+      label: "Mis Eventos",
+      description: "Eventos asignados",
+    },
+    {
+      type: "single",
+      path: "/empleado/recursos",
+      icon: "fas fa-boxes",
+      label: "Recursos",
+      description: "Material disponible",
+    },
+    {
+      type: "single",
+      path: "/empleado/incidencias",
+      icon: "fas fa-exclamation-circle",
+      label: "Incidencias",
+      description: "Registrar problemas",
+    },
+  ];
+
+  const usuarioMenu = [
+    {
+      type: "single",
+      path: "/usuario/mis-eventos",
+      icon: "fas fa-calendar-alt",
+      label: "Mis Eventos",
+      description: "Eventos contratados",
+    },
+    {
+      type: "single",
+      path: "/usuario/cotizaciones",
+      icon: "fas fa-file-invoice-dollar",
+      label: "Cotizaciones",
+      description: "Mis cotizaciones",
+    },
+  ];
+
+  // 🔹 Selección del menú según el tipo de usuario
+  let menuItems = [...baseMenu];
+  if (usuario.tipo === "administrador") menuItems.push(...adminMenu);
+  else if (usuario.tipo === "empleado") menuItems.push(...empleadoMenu);
+  else if (usuario.tipo === "usuario") menuItems.push(...usuarioMenu);
+
   return (
-    <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
-      {/* Header del Sidebar */}
+    <div className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
+      {/* --- HEADER --- */}
       <div className="sidebar-header">
         <div className="logo-container">
           <i className="fas fa-calendar-alt logo-icon"></i>
-          {!isCollapsed && (
-            <h2 className="logo-text">EventFlow Budget</h2>
-          )}
+          {!isCollapsed && <h2 className="logo-text">EventFlow Budget</h2>}
         </div>
-        <button 
+        <button
           className="toggle-btn"
           onClick={toggleSidebar}
-          title={isCollapsed ? 'Expandir menú' : 'Contraer menú'}
+          title={isCollapsed ? "Expandir menú" : "Contraer menú"}
         >
-          <i className={`fas ${isCollapsed ? 'fa-chevron-right' : 'fa-chevron-left'}`}></i>
+          <i
+            className={`fas ${
+              isCollapsed ? "fa-chevron-right" : "fa-chevron-left"
+            }`}
+          ></i>
         </button>
       </div>
 
-      {/* Menú de navegación */}
+      {/* --- MENÚ --- */}
       <nav className="sidebar-nav">
         <ul>
           {menuItems.map((item) => (
             <React.Fragment key={item.key || item.path}>
-              {item.type === 'single' ? (
-                <li 
-                  className={isActive(item.path) ? 'active' : ''}
-                  title={isCollapsed ? item.description : ''}
+              {item.type === "single" ? (
+                <li
+                  className={isActive(item.path) ? "active" : ""}
+                  title={isCollapsed ? item.description : ""}
                 >
                   <Link to={item.path}>
                     <i className={item.icon}></i>
@@ -214,38 +269,38 @@ const Sidebar = () => {
                 </li>
               ) : (
                 <li className="submenu-item">
-                  <div 
-                    className={`submenu-header ${openSubmenu === item.key ? 'open' : ''}`}
+                  <div
+                    className={`submenu-header ${
+                      openSubmenu === item.key ? "open" : ""
+                    }`}
                     onClick={() => toggleSubmenu(item.key)}
-                    title={isCollapsed ? item.description : ''}
                   >
                     <i className={item.icon}></i>
                     {!isCollapsed && (
                       <>
                         <span className="menu-label">{item.label}</span>
-                        <i className={`fas fa-chevron-${openSubmenu === item.key ? 'up' : 'down'} submenu-arrow`}></i>
+                        <i
+                          className={`fas fa-chevron-${
+                            openSubmenu === item.key ? "up" : "down"
+                          } submenu-arrow`}
+                        ></i>
                       </>
                     )}
                   </div>
-                  
                   {openSubmenu === item.key && (
                     <div className="submenu-content open">
                       <ul>
                         {item.subItems.map((subItem) => (
-                          <li 
+                          <li
                             key={subItem.path}
-                            className={isActive(subItem.path) ? 'active' : ''}
-                            title={isCollapsed ? subItem.description : ''}
+                            className={isActive(subItem.path) ? "active" : ""}
                           >
-                            <Link to={subItem.path} onClick={() => {
-                              // Cierra el sidebar en móviles al hacer clic en un subitem
-                              if (window.innerWidth <= 768) {
-                                setIsCollapsed(true);
-                              }
-                            }}>
+                            <Link to={subItem.path}>
                               <i className={subItem.icon}></i>
                               {!isCollapsed && (
-                                <span className="submenu-label">{subItem.label}</span>
+                                <span className="submenu-label">
+                                  {subItem.label}
+                                </span>
                               )}
                             </Link>
                           </li>
@@ -260,7 +315,7 @@ const Sidebar = () => {
         </ul>
       </nav>
 
-      {/* Footer del Sidebar */}
+      {/* --- FOOTER --- */}
       <div className="sidebar-footer">
         <div className="user-info">
           {!isCollapsed && (
@@ -269,14 +324,16 @@ const Sidebar = () => {
                 <i className="fas fa-user-circle"></i>
               </div>
               <div className="user-details">
-                <p className="user-name">Usuario</p>
-                <p className="user-role">Administrador</p>
+                <p className="user-name">{usuario.nombre}</p>
+                <p className="user-role">
+                  {usuario.tipo.charAt(0).toUpperCase() + usuario.tipo.slice(1)}
+                </p>
               </div>
             </>
           )}
         </div>
 
-        <button 
+        <button
           className="logout-btn"
           onClick={handleLogout}
           title="Cerrar sesión"
