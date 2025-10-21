@@ -6,7 +6,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import Sidebar from "./Components/Sidebar";
+import Sidebar from "./Components/sidebar";
 
 import Dashboard from "./Pages/Dashboard";
 import Home from "./Pages/Home";

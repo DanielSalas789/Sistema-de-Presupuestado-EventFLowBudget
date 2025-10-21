@@ -16,7 +16,7 @@
 }
 
 .sidebar.collapsed {
-  width: 60px;
+  width: 120px;
 }
 
 /* Header */
@@ -44,6 +44,14 @@
   background: white;
   padding: 8px;
   border-radius: 8px;
+}
+
+/* Asumiendo que el CSS está cerca de los assets */
+.logo-icon-placeholder {
+  width: 60px;
+  /* Define el tamaño */
+  height: 42px;
+
 }
 
 .logo-text {
@@ -85,7 +93,7 @@
 }
 
 /* Items normales */
-.sidebar-nav > ul > li > a {
+.sidebar-nav>ul>li>a {
   display: flex;
   align-items: center;
   padding: 12px 20px;
@@ -95,13 +103,13 @@
   gap: 15px;
 }
 
-.sidebar-nav > ul > li > a:hover {
+.sidebar-nav>ul>li>a:hover {
   background: rgba(255, 255, 255, 0.1);
   color: white;
   padding-left: 25px;
 }
 
-.sidebar-nav > ul > li.active > a {
+.sidebar-nav>ul>li.active>a {
   background: rgba(52, 152, 219, 0.3);
   color: white;
   border-right: 3px solid #3498db;
@@ -148,7 +156,8 @@
 }
 
 .submenu-content.open {
-  max-height: 300px; /* Altura fija para mejor rendimiento */
+  max-height: 300px;
+  /* Altura fija para mejor rendimiento */
 }
 
 .submenu-content ul {
