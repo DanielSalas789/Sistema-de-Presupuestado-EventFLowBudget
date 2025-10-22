@@ -6,15 +6,15 @@ const cors=require('cors');
 
 //Instanciamos expres y definimos el puerto
 const app=express();
-const port=3306;
+const port=3307;
 app.use(cors());
 
 //conexion a la base de datos de mysql
 const DB =mysql.createConnection({
-    host:'localhost',
+    host:'127.0.0.1',
     user:'root',
-    password:'',
-    database:'Eventflowbudget'
+    password:'', 
+    database:'EFB'
 }); 
 
 DB.connect  ((err)=>{

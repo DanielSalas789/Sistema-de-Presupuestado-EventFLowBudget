@@ -1,6 +1,14 @@
 // 📄 src/data/Sidebar/Const.jsx
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import {
+  FaAccessibleIcon,
+  FaCircle,
+  FaHome,
+  FaHouseUser,
+} from "react-icons/fa";
+import { FaCalendarDay } from "react-icons/fa6";
+import { AiFillEdit, AiFillCalculator } from "react-icons/ai";
 
 const useSidebarData = () => {
   const location = useLocation();
@@ -27,7 +35,7 @@ const useSidebarData = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    navigate("/login");
+    navigate("/Login");
   };
 
   const isActive = (path) =>
@@ -37,22 +45,29 @@ const useSidebarData = () => {
   const baseMenu = [
     {
       type: "single",
-      path: "/dashboard",
-      icon: "fas fa-home",
+      path: "/Home", // 👈 Nuevo ítem "Home"
+      icon: <FaHome />,
+      label: "Inicio", // 👈 Este texto es el que se mostrará
+      description: "Ir al inicio",
+    },
+    {
+      type: "single",
+      path: "/Dashboard",
+      icon: <FaHouseUser />,
       label: "Dashboard",
       description: "Panel principal",
     },
     {
       type: "single",
       path: "/crear-presupuesto",
-      icon: "fas fa-plus-circle",
+      icon: <AiFillEdit />,
       label: "Crear Presupuesto",
       description: "Nuevo presupuesto",
     },
     {
       type: "single",
       path: "/presupuestos",
-      icon: "fas fa-list",
+      icon: <AiFillCalculator />,
       label: "Mis Presupuestos",
       description: "Lista de presupuestos",
     },
@@ -62,7 +77,7 @@ const useSidebarData = () => {
     {
       type: "submenu",
       key: "servicios",
-      icon: "fas fa-concierge-bell",
+      icon: "<AiFillCalculator />",
       label: "Servicios",
       description: "Gestión de servicios",
       subItems: [
@@ -90,7 +105,7 @@ const useSidebarData = () => {
     {
       type: "single",
       path: "/empleado/eventos",
-      icon: "fas fa-calendar-check",
+      icon: <FaCalendarDay />,
       label: "Mis Eventos",
     },
   ];
@@ -99,7 +114,7 @@ const useSidebarData = () => {
     {
       type: "single",
       path: "/usuario/mis-eventos",
-      icon: "fas fa-calendar-alt",
+      icon: <FaCalendarDay />,
       label: "Mis Eventos",
     },
   ];

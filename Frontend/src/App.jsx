@@ -1,4 +1,4 @@
-// App.jsx - Solo UN Router aquí
+// 📄 App.jsx
 import React, { useState } from "react";
 import {
   BrowserRouter as Router,
@@ -6,13 +6,12 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import Sidebar from "./Components/sidebar";
-
+import Sidebar from "./Components/Sidebar";
 import Dashboard from "./Pages/Dashboard";
 import Home from "./Pages/Home";
 import "./Styles/App.css";
 
-import Login from "./Pages/Login"; // Página de inicio de sesión
+import Login from "./Pages/Login";
 import AdminPanel from "./Pages/AdminPanel";
 import EmpleadoPanel from "./Pages/EmpleadoPanel";
 import CrearPresupuesto from "./Pages/CrearPresupuesto";
@@ -20,6 +19,7 @@ import Presupuestos from "./Pages/Presupuestos";
 
 function App() {
   const [usuario, setUsuario] = useState(null);
+  const [isCollapsed, setIsCollapsed] = useState(false); // 👈 nuevo estado
 
   const handleLogin = (tipoUsuario) => {
     setUsuario({ tipo: tipoUsuario });
@@ -42,9 +42,14 @@ function App() {
   return (
     <Router>
       <div className="app">
-        <Sidebar usuario={usuario} onLogout={handleLogout} />
+        <Sidebar
+          usuario={usuario}
+          onLogout={handleLogout}
+          onToggle={(collapsed) => setIsCollapsed(collapsed)} // 👈 pasamos el estado
+        />
 
-        <main className="main-content">
+        {/* Ajusta el margen dinámicamente */}
+        <main className={`main-content ${isCollapsed ? "collapsed" : ""}`}>
           <Routes>
             <Route path="/" element={<Home />} />
 

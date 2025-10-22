@@ -1,41 +1,53 @@
-/* Sidebar.css - Versión con colapso automático */
+/* ===========================================================
+   SIDEBAR MODERNO Y DINÁMICO - Basado en tu estructura original
+   =========================================================== */
+
+/* ============================
+   SIDEBAR PRINCIPAL
+============================ */
 .sidebar {
   width: 280px;
   height: 100vh;
-  background: linear-gradient(180deg, #2c3e50 0%, #3498db 100%);
-  color: white;
-  display: flex;
-  flex-direction: column;
-  transition: all 0.3s ease;
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 1000;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  color: white;
+  background: linear-gradient(180deg, #2c3e50 0%, #3498db 100%);
   overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 3px 0 12px rgba(0, 0, 0, 0.15);
+  transition: width 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .sidebar.collapsed {
-  width: 120px;
+  width: 150px;
 }
 
-/* Header */
+
+
+/* ============================
+   ENCABEZADO
+============================ */
 .sidebar-header {
   padding: 20px 15px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   position: sticky;
   top: 0;
-  background: inherit;
   z-index: 10;
+  backdrop-filter: blur(6px);
 }
 
 .logo-container {
   display: flex;
   align-items: center;
   gap: 10px;
+  transition: all 0.3s ease;
 }
 
 .logo-icon {
@@ -43,39 +55,46 @@
   color: #3498db;
   background: white;
   padding: 8px;
-  border-radius: 8px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(52, 152, 219, 0.5);
+  transition: transform 0.3s ease;
 }
 
-/* Asumiendo que el CSS está cerca de los assets */
+.logo-icon:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
 .logo-icon-placeholder {
   width: 60px;
-  /* Define el tamaño */
   height: 42px;
-
 }
 
 .logo-text {
   font-size: 18px;
   font-weight: bold;
-  margin: 0;
   color: white;
+  letter-spacing: 0.5px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .toggle-btn {
   background: rgba(255, 255, 255, 0.1);
   border: none;
   color: white;
-  padding: 5px;
-  border-radius: 4px;
+  padding: 10px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.10s ease, transform 0.7s ease;
 }
 
 .toggle-btn:hover {
   background: rgba(255, 255, 255, 0.2);
+
 }
 
-/* Navegación */
+/* ============================
+   NAVEGACIÓN PRINCIPAL
+============================ */
 .sidebar-nav {
   flex: 1;
   padding: 20px 0;
@@ -92,30 +111,34 @@
   margin: 2px 0;
 }
 
-/* Items normales */
 .sidebar-nav>ul>li>a {
   display: flex;
   align-items: center;
   padding: 12px 20px;
+  gap: 15px;
   color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
+  border-left: 3px solid transparent;
   transition: all 0.3s ease;
-  gap: 15px;
 }
 
 .sidebar-nav>ul>li>a:hover {
   background: rgba(255, 255, 255, 0.1);
   color: white;
   padding-left: 25px;
+  border-left: 3px solid #3498db;
 }
 
 .sidebar-nav>ul>li.active>a {
   background: rgba(52, 152, 219, 0.3);
   color: white;
-  border-right: 3px solid #3498db;
+  border-left: 3px solid #3498db;
+  box-shadow: inset 3px 0 5px rgba(52, 152, 219, 0.3);
 }
 
-/* Submenús */
+/* ============================
+   SUBMENÚS
+============================ */
 .submenu-item {
   margin: 5px 0;
 }
@@ -123,19 +146,21 @@
 .submenu-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 12px 20px;
+  gap: 15px;
   color: rgba(255, 255, 255, 0.8);
   cursor: pointer;
-  transition: all 0.3s ease;
-  gap: 15px;
-  justify-content: space-between;
   user-select: none;
+  border-left: 3px solid transparent;
+  transition: all 0.3s ease;
 }
 
 .submenu-header:hover {
   background: rgba(255, 255, 255, 0.1);
   color: white;
   padding-left: 25px;
+  border-left: 3px solid #3498db;
 }
 
 .submenu-header.open {
@@ -151,13 +176,13 @@
 .submenu-content {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.15);
+  transition: max-height 0.35s ease, background 0.3s ease;
+  border-left: 2px solid rgba(52, 152, 219, 0.3);
 }
 
 .submenu-content.open {
   max-height: 300px;
-  /* Altura fija para mejor rendimiento */
 }
 
 .submenu-content ul {
@@ -168,11 +193,11 @@
   display: flex;
   align-items: center;
   padding: 10px 20px 10px 45px;
+  gap: 12px;
+  font-size: 13px;
   color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
   transition: all 0.3s ease;
-  gap: 12px;
-  font-size: 13px;
 }
 
 .submenu-content li a:hover {
@@ -187,12 +212,20 @@
   border-right: 2px solid #3498db;
 }
 
-/* Iconos */
+/* ============================
+   ICONOS Y ETIQUETAS
+============================ */
 .sidebar-nav i {
   width: 20px;
   text-align: center;
   font-size: 16px;
   flex-shrink: 0;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.sidebar-nav a:hover i {
+  transform: scale(1.2);
+  color: #5dade2;
 }
 
 .menu-label,
@@ -205,13 +238,16 @@
   text-overflow: ellipsis;
 }
 
-/* Footer */
+/* ============================
+   PIE DE SIDEBAR
+============================ */
 .sidebar-footer {
   padding: 15px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   position: sticky;
   bottom: 0;
-  background: inherit;
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(4px);
 }
 
 .user-info {
@@ -251,21 +287,62 @@
   justify-content: center;
   gap: 10px;
   padding: 10px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.9);
   background: rgba(231, 76, 60, 0.2);
   border: 1px solid rgba(231, 76, 60, 0.3);
-  color: rgba(255, 255, 255, 0.9);
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-size: 12px;
 }
 
 .logout-btn:hover {
-  background: rgba(231, 76, 60, 0.3);
-  color: white;
+  background: rgba(231, 76, 60, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
 }
 
-/* Responsive */
+/* ============================
+   SCROLLBAR PERSONALIZADO
+============================ */
+.sidebar-nav::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-nav::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* ============================
+   ESTILO COLAPSADO
+============================ */
+.sidebar.collapsed .sidebar-nav>ul>li>a {
+  justify-content: center;
+  padding: 12px 0;
+}
+
+.sidebar.collapsed .sidebar-nav i,
+.sidebar.collapsed .menu-icon {
+  margin: 0;
+  text-align: center;
+}
+
+.sidebar.collapsed .sidebar-nav>ul>li>a:hover {
+  padding-right: 15px;
+}
+
+/* ============================
+   RESPONSIVE
+============================ */
 @media (max-width: 768px) {
   .sidebar {
     width: 60px;
@@ -297,7 +374,7 @@
     display: flex;
   }
 
-  /* Overlay para móviles */
+  /* Overlay móvil */
   .sidebar:not(.collapsed)::before {
     content: "";
     position: fixed;
@@ -308,31 +385,4 @@
     background: rgba(0, 0, 0, 0.5);
     z-index: 100%;
   }
-}
-
-/* Scrollbar personalizado */
-.sidebar-nav::-webkit-scrollbar {
-  width: 4px;
-}
-
-.sidebar-nav::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.sidebar-nav::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 2px;
-}
-
-.sidebar-nav::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.5);
-}
-
-/* Mejoras de rendimiento */
-.submenu-content {
-  will-change: max-height;
-}
-
-.submenu-content ul {
-  will-change: transform;
 }

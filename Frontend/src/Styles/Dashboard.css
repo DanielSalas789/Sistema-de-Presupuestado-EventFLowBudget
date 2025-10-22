@@ -1,6 +1,5 @@
 .dashboard {
   padding: 20px;
-  margin-left: 250px; /* Mismo ancho que el sidebar */
   min-height: 100vh;
   background: #f8f9fa;
 }
@@ -172,7 +171,7 @@
   .dashboard {
     margin-left: 60px;
   }
-  
+
   .stats-grid {
     grid-template-columns: 1fr;
   }

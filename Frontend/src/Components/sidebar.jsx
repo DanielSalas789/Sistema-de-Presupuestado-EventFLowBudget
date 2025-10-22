@@ -1,12 +1,12 @@
-// 📄 src/components/Sidebar.jsx
-import React from "react";
+// 📄 Sidebar.jsx
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../Styles/Sidebar.css";
 import EventFlowLogo from "../assets/Images/EventFlowBudget.png";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import useSidebarData from "../data/Sidebar/Const.jsx";
 
-const Sidebar = () => {
+const Sidebar = ({ onToggle }) => {
   const {
     isCollapsed,
     openSubmenu,
@@ -18,9 +18,13 @@ const Sidebar = () => {
     isActive,
   } = useSidebarData();
 
+  // 🔔 Notifica al padre cada vez que cambia el estado del sidebar
+  useEffect(() => {
+    if (onToggle) onToggle(isCollapsed);
+  }, [isCollapsed, onToggle]);
+
   return (
     <div className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
-      {/* HEADER */}
       <div className="sidebar-header">
         <div className="logo-container">
           <img
@@ -43,7 +47,7 @@ const Sidebar = () => {
               {item.type === "single" ? (
                 <li className={isActive(item.path) ? "active" : ""}>
                   <Link to={item.path}>
-                    <i className={item.icon}></i>
+                    <span className="menu-icon">{item.icon}</span>
                     {!isCollapsed && <span>{item.label}</span>}
                   </Link>
                 </li>
@@ -55,7 +59,6 @@ const Sidebar = () => {
                     }`}
                     onClick={() => toggleSubmenu(item.key)}
                   >
-                    <i className={item.icon}></i>
                     {!isCollapsed && (
                       <>
                         <span>{item.label}</span>
@@ -92,7 +95,6 @@ const Sidebar = () => {
         </ul>
       </nav>
 
-      {/* FOOTER */}
       <div className="sidebar-footer">
         {!isCollapsed && (
           <div className="user-info">
