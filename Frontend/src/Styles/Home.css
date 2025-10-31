@@ -1,0 +1,47 @@
+/* === Estilos generales de la página Home === */
+.home-page {
+    background-color: #ffffff;
+    /* Fondo blanco */
+    min-height: 100vh;
+    /* Que ocupe toda la altura visible */
+    padding: 60px 20px;
+    /* Espaciado general */
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+/* === Título principal === */
+.home-page h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+/* === Subtítulo o descripción === */
+.home-page p {
+    text-align: center;
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 40px;
+}
+
+/* === Ajuste del componente Servicios dentro del Home === */
+.home-page .servicios-section {
+    margin-top: 30px;
+}
+
+/* === Ajustes para pantallas pequeñas === */
+@media (max-width: 768px) {
+    .home-page {
+        padding: 40px 15px;
+    }
+
+    .home-page h2 {
+        font-size: 1.5rem;
+    }
+
+    .home-page p {
+        font-size: 0.95rem;
+    }
+}

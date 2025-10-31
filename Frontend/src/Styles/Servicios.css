@@ -1,7 +1,7 @@
 /* === Estilos generales de la sección === */
 .servicios-section {
   padding: 60px 20px;
-  background-color: #f7f7f7;
+  background-color: #3177a8;
 }
 
 /* Contenedor principal */
@@ -15,7 +15,7 @@
   font-size: 2rem;
   font-weight: bold;
   text-align: center;
-  color: #333;
+  color: #ffffff;
   margin-bottom: 40px;
 }
 
@@ -42,7 +42,7 @@
 }
 
 .servicio-card h3 {
-  font-size: 1.25rem;
+  font-size: 1.8em;
   color: #2c3e50;
   margin-bottom: 10px;
 }

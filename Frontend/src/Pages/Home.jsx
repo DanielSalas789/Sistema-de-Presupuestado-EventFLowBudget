@@ -1,5 +1,7 @@
 import React from "react";
 import Servicios from "../Components/Servicios";
+import "../Styles/Home.css";
+
 function Home({ productos }) {
   return (
     <div className="home-page">
