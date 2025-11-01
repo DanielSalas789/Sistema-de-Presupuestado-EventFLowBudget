@@ -1,13 +1,7 @@
-// 📄 src/data/Sidebar/Const.jsx
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import {
-  FaAccessibleIcon,
-  FaCircle,
-  FaHome,
-  FaHouseUser,
-} from "react-icons/fa";
-import { FaCalendarDay } from "react-icons/fa6";
+import Swal from "sweetalert2";
+import { FaHome, FaHouseUser, FaCalendarDay } from "react-icons/fa";
 import { AiFillEdit, AiFillCalculator } from "react-icons/ai";
 
 const useSidebarData = () => {
@@ -18,7 +12,7 @@ const useSidebarData = () => {
   const [openSubmenu, setOpenSubmenu] = useState(null);
   const [usuario, setUsuario] = useState({
     nombre: "Invitado",
-    tipo: "usuario", // "administrador" | "empleado" | "usuario"
+    tipo: "usuario",
   });
 
   // Cargar usuario desde localStorage
@@ -27,10 +21,34 @@ const useSidebarData = () => {
     if (userData) setUsuario(userData);
   }, []);
 
-  // --- Funciones ---
-  const toggleSidebar = () => setIsCollapsed(!isCollapsed);
-  const toggleSubmenu = (menuKey) =>
+  // --- Funciones principales ---
+  const toggleSidebar = () => setIsCollapsed((prev) => !prev);
+
+  const handleToggleSidebar = () => {
+    toggleSidebar();
+    Swal.fire({
+      toast: true,
+      position: "top-end",
+      icon: isCollapsed ? "info" : "success",
+      title: isCollapsed ? "Sidebar expandido" : "Sidebar colapsado",
+      showConfirmButton: false,
+      timer: 1000,
+    });
+  };
+
+  const toggleSubmenu = (menuKey) => {
     setOpenSubmenu(openSubmenu === menuKey ? null : menuKey);
+    Swal.fire({
+      toast: true,
+      position: "top-end",
+      icon: "info",
+      title: `Submenú "${menuKey}" ${
+        openSubmenu === menuKey ? "cerrado" : "abierto"
+      }`,
+      showConfirmButton: false,
+      timer: 1000,
+    });
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -39,15 +57,16 @@ const useSidebarData = () => {
   };
 
   const isActive = (path) =>
-    location.pathname === path || location.pathname.startsWith(path + "/");
+    location.pathname === path ||
+    location.pathname.startsWith(path + "/Frontend/src/Pages/Login.jsx");
 
   // --- Menús ---
   const baseMenu = [
     {
       type: "single",
-      path: "/Home", // 👈 Nuevo ítem "Home"
+      path: "/Home",
       icon: <FaHome />,
-      label: "Inicio", // 👈 Este texto es el que se mostrará
+      label: "Inicio",
       description: "Ir al inicio",
     },
     {
@@ -77,7 +96,6 @@ const useSidebarData = () => {
     {
       type: "submenu",
       key: "servicios",
-      icon: "<AiFillCalculator />",
       label: "Servicios",
       description: "Gestión de servicios",
       subItems: [
@@ -119,13 +137,13 @@ const useSidebarData = () => {
     },
   ];
 
-  // --- Lógica de menú dinámico ---
+  // --- Menú dinámico según tipo ---
   let menuItems = [...baseMenu];
   if (usuario.tipo === "administrador") menuItems.push(...adminMenu);
   else if (usuario.tipo === "empleado") menuItems.push(...empleadoMenu);
-  else if (usuario.tipo === "usuario") menuItems.push(...usuarioMenu);
+  else menuItems.push(...usuarioMenu);
 
-  // Autoabrir submenú activo
+  // --- Autoabrir submenú activo ---
   useEffect(() => {
     const activeSubmenu = menuItems.find(
       (item) =>
@@ -140,7 +158,7 @@ const useSidebarData = () => {
     openSubmenu,
     usuario,
     menuItems,
-    toggleSidebar,
+    toggleSidebar: handleToggleSidebar, // 🔄 usa la versión con SweetAlert
     toggleSubmenu,
     handleLogout,
     isActive,

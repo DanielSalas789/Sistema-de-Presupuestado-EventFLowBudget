@@ -1,12 +1,14 @@
-// 📄 Sidebar.jsx
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../Styles/Sidebar.css";
 import EventFlowLogo from "../assets/Images/EventFlowBudget.png";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import useSidebarData from "../data/Sidebar/Const.jsx";
+import Swal from "sweetalert2";
 
 const Sidebar = ({ onToggle }) => {
+  const navigate = useNavigate();
+
   const {
     isCollapsed,
     openSubmenu,
@@ -18,13 +20,46 @@ const Sidebar = ({ onToggle }) => {
     isActive,
   } = useSidebarData();
 
-  // 🔔 Notifica al padre cada vez que cambia el estado del sidebar
+  // 🔔 Notifica al componente padre cuando cambia el estado del sidebar
   useEffect(() => {
     if (onToggle) onToggle(isCollapsed);
   }, [isCollapsed, onToggle]);
 
+  // 🔐 Función para cerrar sesión con alerta y redirección
+  const confirmLogout = () => {
+    Swal.fire({
+      title: "¿Cerrar sesión?",
+      text: "Tu sesión actual se cerrará.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, cerrar sesión",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Primero elimina los datos de sesión
+        handleLogout();
+
+        // Muestra una alerta de confirmación
+        Swal.fire({
+          title: "Sesión cerrada",
+          text: "Has cerrado sesión correctamente.",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+          willClose: () => {
+            // 👇 Redirige al Login después de cerrar la alerta
+            navigate("/Login");
+          },
+        });
+      }
+    });
+  };
+
   return (
     <div className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
+      {/* === ENCABEZADO === */}
       <div className="sidebar-header">
         <div className="logo-container">
           <img
@@ -39,7 +74,7 @@ const Sidebar = ({ onToggle }) => {
         </button>
       </div>
 
-      {/* MENU */}
+      {/* === MENÚ === */}
       <nav className="sidebar-nav">
         <ul>
           {menuItems.map((item) => (
@@ -95,6 +130,7 @@ const Sidebar = ({ onToggle }) => {
         </ul>
       </nav>
 
+      {/* === PIE DEL SIDEBAR === */}
       <div className="sidebar-footer">
         {!isCollapsed && (
           <div className="user-info">
@@ -109,7 +145,38 @@ const Sidebar = ({ onToggle }) => {
             </div>
           </div>
         )}
-        <button className="logout-btn" onClick={handleLogout}>
+
+        {/* === BOTÓN DE CERRAR SESIÓN === */}
+        <button
+          className="logout-btn"
+          onClick={() => {
+            Swal.fire({
+              title: "¿Cerrar sesión?",
+              text: "Tu sesión actual se cerrará.",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "Sí, cerrar sesión",
+              cancelButtonText: "Cancelar",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                handleLogout(); // elimina token, user y prepara navegación
+                Swal.fire({
+                  title: "Sesión cerrada",
+                  text: "Has cerrado sesión correctamente.",
+                  icon: "success",
+                  timer: 1500,
+                  showConfirmButton: false,
+                  willClose: () => {
+                    // 👇 redirige después de que se cierra el SweetAlert
+                    window.location.href = "/Login";
+                  },
+                });
+              }
+            });
+          }}
+        >
           <i className="fas fa-sign-out-alt"></i>
           {!isCollapsed && <span>Cerrar sesión</span>}
         </button>

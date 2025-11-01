@@ -1,47 +1,85 @@
-/* === Estilos generales de la página Home === */
+/* === Estructura general === */
 .home-page {
     background-color: #ffffff;
-    /* Fondo blanco */
-    min-height: 100vh;
-    /* Que ocupe toda la altura visible */
-    padding: 60px 20px;
-    /* Espaciado general */
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     color: #333;
 }
 
-/* === Título principal === */
-.home-page h2 {
+/* === Banner principal === */
+.home-banner {
+    position: relative;
+    height: 60vh;
+    /* Altura del banner */
+    background-image: url("https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=1400&q=80");
+    /* Puedes reemplazar la URL por una imagen tuya del salón */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Capa semitransparente para oscurecer la imagen y resaltar el texto */
+.banner-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
+    color: white;
+    padding: 0 20px;
+}
+
+/* Título principal del banner */
+.banner-overlay h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* Subtítulo del banner */
+.banner-overlay p {
+    font-size: 1.2rem;
+    max-width: 700px;
+    line-height: 1.6;
+}
+
+/* === Contenido principal (debajo del banner) === */
+.home-content {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.home-content h2 {
     font-size: 2rem;
     color: #2c3e50;
     margin-bottom: 20px;
 }
 
-/* === Subtítulo o descripción === */
-.home-page p {
-    text-align: center;
-    font-size: 1rem;
+.home-content p {
     color: #555;
     margin-bottom: 40px;
-}
-
-/* === Ajuste del componente Servicios dentro del Home === */
-.home-page .servicios-section {
-    margin-top: 30px;
+    font-size: 1rem;
 }
 
 /* === Ajustes para pantallas pequeñas === */
 @media (max-width: 768px) {
-    .home-page {
-        padding: 40px 15px;
+    .home-banner {
+        height: 50vh;
     }
 
-    .home-page h2 {
+    .banner-overlay h1 {
+        font-size: 1.8rem;
+    }
+
+    .banner-overlay p {
+        font-size: 1rem;
+    }
+
+    .home-content h2 {
         font-size: 1.5rem;
-    }
-
-    .home-page p {
-        font-size: 0.95rem;
     }
 }
