@@ -1,12 +1,16 @@
 // 📄 src/Pages/Dashboard.jsx
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ Importa el hook de navegación
+import { useNavigate } from "react-router-dom";
 import "../Styles/Dashboard.css";
-import TestSupabase from "../Components/TestSupabase"; // ✅ Importa el componente de prueba Supabase
+
+// ✅ Componentes de funcionalidad
+// import TestSupabase from "../Components/TestSupabase";  Prueba de conexión con Supabase
+// Lista de presupuestos desde Supabase
 
 const Dashboard = () => {
-  const navigate = useNavigate(); // ✅ Inicializa la navegación
+  const navigate = useNavigate();
 
+  // 🔢 Estado para estadísticas principales del Dashboard
   const [stats, setStats] = useState({
     totalPresupuestos: 0,
     presupuestosActivos: 0,
@@ -14,6 +18,7 @@ const Dashboard = () => {
     clientesActivos: 0,
   });
 
+  // 🔄 Simulación inicial: podrías reemplazarla luego con datos reales desde Supabase
   useEffect(() => {
     setStats({
       totalPresupuestos: 0,
@@ -23,6 +28,7 @@ const Dashboard = () => {
     });
   }, []);
 
+  // 📅 Datos de ejemplo de actividad reciente
   const recentActivities = [
     {
       id: 1,
@@ -42,27 +48,18 @@ const Dashboard = () => {
       date: "2024-01-15",
       time: "10:15",
     },
-    {
-      id: 3,
-      type: "presupuesto",
-      action: "actualizado",
-      title: "Fiesta de 15 años Sofía",
-      amount: 1800,
-      date: "2024-01-14",
-      time: "16:45",
-    },
   ];
 
   return (
     <div className="dashboard">
-      {/* Encabezado */}
+      {/* ================== ENCABEZADO ================== */}
       <div className="dashboard-header">
         <h1>Dashboard</h1>
         <p>Resumen general de tu negocio</p>
       </div>
 
       <div className="dashboard-content">
-        {/* 🔹 Actividad Reciente */}
+        {/* ================== ACTIVIDAD RECIENTE ================== */}
         <div className="recent-activity">
           <h2>Actividad Reciente</h2>
           <div className="activity-list">
@@ -89,10 +86,11 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* 🔹 Acciones Rápidas */}
+        {/* ================== ACCIONES RÁPIDAS ================== */}
         <div className="quick-actions">
           <h2>Acciones Rápidas</h2>
           <div className="actions-grid">
+            {/* ⚡ Puedes conectar estos botones con tus rutas o modales */}
             <button
               className="action-btn"
               onClick={() => navigate("/crear-presupuesto")}
@@ -124,7 +122,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* 🔹 Estadísticas */}
+        {/* ================== ESTADÍSTICAS ================== */}
         <div className="stats-grid">
           <div className="stat-card">
             <div className="stat-icon" style={{ background: "#3498db" }}>
@@ -165,12 +163,6 @@ const Dashboard = () => {
               <p>Clientes Activos</p>
             </div>
           </div>
-
-          {/* 👇 Añadimos aquí la sección Supabase */}
-          <section>
-            <h2>Integración con Base de Datos (Supabase)</h2>
-            <TestSupabase />
-          </section>
         </div>
       </div>
     </div>
