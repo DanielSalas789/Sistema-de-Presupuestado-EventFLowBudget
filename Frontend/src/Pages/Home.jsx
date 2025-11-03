@@ -23,10 +23,9 @@ function Home({ productos }) {
           Descubre todo lo que ofrecemos para hacer de tu evento una experiencia
           inolvidable.
         </p>
-
-        {/* Componente de servicios */}
-        <Servicios />
       </section>
+      {/* Componente de servicios */}
+      <Servicios />
     </div>
   );
 }

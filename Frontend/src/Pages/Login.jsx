@@ -7,7 +7,7 @@ export default function Login({ onLogin }) {
 
   const doLogin = (tipo) => {
     onLogin(tipo);
-    navigate("/Frontend/src/Pages/Home.jsx"); // redirige a Home después de iniciar sesión
+    navigate("/Home"); // ✅ redirige a la ruta, no al archivo físico
   };
 
   return (

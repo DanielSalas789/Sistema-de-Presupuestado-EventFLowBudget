@@ -1,49 +1,68 @@
-/* === Estilos generales de la sección === */
+/* === Sección principal === */
 .servicios-section {
-  padding: 60px 20px;
-  background-color: #3177a8;
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #3177a8, #4ba3c7);
+  color: #fff;
 }
 
-/* Contenedor principal */
+/* Contenedor general */
 .servicios-container {
   max-width: 1200px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
 }
 
-/* Título principal */
+/* Título */
 .servicios-titulo {
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: 2.5rem;
   text-align: center;
-  color: #ffffff;
-  margin-bottom: 40px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
 }
 
-/* === Cuadrícula de servicios principales === */
+/* === Grid de servicios === */
 .servicios-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px;
-  margin-bottom: 50px;
+  gap: 30px;
 }
 
-/* === Tarjetas de cada servicio === */
+/* === Tarjeta de servicio === */
 .servicio-card {
-  background-color: white;
-  border-radius: 10px;
-  padding: 25px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: #ffffff;
+  color: #2c3e50;
+  border-radius: 15px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
 }
 
 .servicio-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
 }
 
+/* Icono principal */
+.icono-servicio {
+  font-size: 2.5rem;
+  color: #3177a8;
+  background-color: #e8f4fa;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin: 0 auto 15px;
+}
+
+/* Título de la tarjeta */
 .servicio-card h3 {
-  font-size: 1.8em;
-  color: #2c3e50;
+  font-size: 1.4rem;
   margin-bottom: 10px;
 }
 
@@ -53,35 +72,49 @@
   line-height: 1.5;
 }
 
-/* === Aside de ayuda / información del sistema === */
+/* === Aside informativo === */
 .servicios-aside {
   background-color: #fff8e1;
-  border-left: 5px solid #f4b400;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border-left: 6px solid #f4b400;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .servicios-aside h3 {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: #795548;
   margin-bottom: 15px;
 }
 
 .servicios-aside ul {
   list-style: none;
-  padding-left: 0;
+  padding: 0;
 }
 
 .servicios-aside li {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  font-size: 1rem;
   color: #444;
-  font-size: 0.95rem;
-  line-height: 1.4;
+  position: relative;
+  padding-left: 20px;
 }
 
 .servicios-aside li::before {
-  content: "• ";
+  content: "•";
+  position: absolute;
+  left: 0;
   color: #f4b400;
   font-weight: bold;
+}
+
+/* === Responsivo === */
+@media (max-width: 768px) {
+  .servicios-container {
+    flex-direction: column;
+  }
+
+  .servicios-titulo {
+    font-size: 2rem;
+  }
 }

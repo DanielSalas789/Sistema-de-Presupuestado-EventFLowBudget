@@ -2,7 +2,9 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-export default defineConfig({
-  base: "/Sistema-de-Presupuestado-EventFLowBudget/", // Usa el nombre exacto de tu repo
+export default defineConfig(({ mode }) => ({
+  base: mode === "production"
+    ? "/Sistema-de-Presupuestado-EventFLowBudget/" // ✅ solo nombre del repo
+    : "/", // ✅ para desarrollo local
   plugins: [react()],
-});
+}));
