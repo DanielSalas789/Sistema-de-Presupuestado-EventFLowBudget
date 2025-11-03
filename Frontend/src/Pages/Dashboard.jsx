@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // ✅ Importa el hook de navegación
 import "../Styles/Dashboard.css";
+import TestSupabase from "../Components/TestSupabase"; // ✅ Importa el componente de prueba Supabase
 
 const Dashboard = () => {
   const navigate = useNavigate(); // ✅ Inicializa la navegación
@@ -164,6 +165,12 @@ const Dashboard = () => {
               <p>Clientes Activos</p>
             </div>
           </div>
+
+          {/* 👇 Añadimos aquí la sección Supabase */}
+          <section>
+            <h2>Integración con Base de Datos (Supabase)</h2>
+            <TestSupabase />
+          </section>
         </div>
       </div>
     </div>
