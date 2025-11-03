@@ -1,66 +1,97 @@
+// 📄 src/data/Sidebar/useSidebarData.jsx
+
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { FaHome, FaHouseUser, FaCalendarDay } from "react-icons/fa";
 import { AiFillEdit, AiFillCalculator } from "react-icons/ai";
 
+/* 
+===========================================
+🧩 Hook personalizado: useSidebarData
+-------------------------------------------
+Este hook gestiona la lógica de:
+- Colapso y expansión del sidebar
+- Submenús activos
+- Datos del usuario
+- Navegación y cierre de sesión
+- Construcción dinámica del menú según rol
+===========================================
+*/
+
 const useSidebarData = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const [openSubmenu, setOpenSubmenu] = useState(null);
+  // --- Estados principales ---
+  const [isCollapsed, setIsCollapsed] = useState(false); // Controla si el sidebar está colapsado
+  const [openSubmenu, setOpenSubmenu] = useState(null); // Guarda qué submenú está abierto
   const [usuario, setUsuario] = useState({
     nombre: "Invitado",
     tipo: "usuario",
-  });
+  }); // Info del usuario actual
 
-  // Cargar usuario desde localStorage
+  // === Cargar usuario desde localStorage ===
   useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem("user"));
-    if (userData) setUsuario(userData);
+    try {
+      const userData = JSON.parse(localStorage.getItem("user"));
+      if (userData) setUsuario(userData);
+    } catch (error) {
+      console.error("❌ Error al leer usuario desde localStorage:", error);
+    }
   }, []);
 
-  // --- Funciones principales ---
-  const toggleSidebar = () => setIsCollapsed((prev) => !prev);
-
+  // === Alternar colapso del sidebar ===
   const handleToggleSidebar = () => {
-    toggleSidebar();
+    const newState = !isCollapsed; // Usamos el nuevo estado antes de aplicarlo
+    setIsCollapsed(newState);
+
     Swal.fire({
       toast: true,
       position: "top-end",
-      icon: isCollapsed ? "info" : "success",
-      title: isCollapsed ? "Sidebar expandido" : "Sidebar colapsado",
+      icon: newState ? "info" : "success",
+      title: newState ? "Sidebar colapsado" : "Sidebar expandido",
       showConfirmButton: false,
       timer: 1000,
     });
   };
 
+  // === Alternar apertura de submenús ===
   const toggleSubmenu = (menuKey) => {
-    setOpenSubmenu(openSubmenu === menuKey ? null : menuKey);
+    const isClosing = openSubmenu === menuKey;
+    setOpenSubmenu(isClosing ? null : menuKey);
+
     Swal.fire({
       toast: true,
       position: "top-end",
       icon: "info",
-      title: `Submenú "${menuKey}" ${
-        openSubmenu === menuKey ? "cerrado" : "abierto"
-      }`,
+      title: `Submenú "${menuKey}" ${isClosing ? "cerrado" : "abierto"}`,
       showConfirmButton: false,
       timer: 1000,
     });
   };
 
+  // === Cerrar sesión ===
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    navigate("/Login");
+    Swal.fire({
+      title: "¿Cerrar sesión?",
+      text: "Tu sesión se cerrará y volverás al inicio de sesión.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, salir",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.clear();
+        navigate("/Login");
+      }
+    });
   };
 
-  const isActive = (path) =>
-    location.pathname === path ||
-    location.pathname.startsWith(path + "/Frontend/src/Pages/Login.jsx");
+  // === Verificar ruta activa ===
+  const isActive = (path) => location.pathname.startsWith(path);
 
-  // --- Menús ---
+  // --- Menús base (se pueden mover a un archivo separado si crecen más) ---
   const baseMenu = [
     {
       type: "single",
@@ -137,13 +168,13 @@ const useSidebarData = () => {
     },
   ];
 
-  // --- Menú dinámico según tipo ---
+  // --- Construcción dinámica del menú según rol ---
   let menuItems = [...baseMenu];
   if (usuario.tipo === "administrador") menuItems.push(...adminMenu);
   else if (usuario.tipo === "empleado") menuItems.push(...empleadoMenu);
   else menuItems.push(...usuarioMenu);
 
-  // --- Autoabrir submenú activo ---
+  // === Autoabrir submenú activo ===
   useEffect(() => {
     const activeSubmenu = menuItems.find(
       (item) =>
@@ -153,12 +184,13 @@ const useSidebarData = () => {
     if (activeSubmenu) setOpenSubmenu(activeSubmenu.key);
   }, [location.pathname]);
 
+  // === Retornar funciones y estados útiles al componente que usa este hook ===
   return {
     isCollapsed,
     openSubmenu,
     usuario,
     menuItems,
-    toggleSidebar: handleToggleSidebar, // 🔄 usa la versión con SweetAlert
+    toggleSidebar: handleToggleSidebar,
     toggleSubmenu,
     handleLogout,
     isActive,
