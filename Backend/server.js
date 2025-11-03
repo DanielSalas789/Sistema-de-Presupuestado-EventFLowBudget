@@ -1,33 +1,28 @@
-// Librerias
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
 
-const express=require('express');
-const mysql=require('mysql');
-const cors=require('cors');
+const app = express();
 
-//Instanciamos expres y definimos el puerto
-const app=express();
-const port=3307;
-app.use(cors());
+// Middlewares
+app.use(cors({
+  origin: [
+    'https://github.com/DanielSalas789/Sistema-de-Presupuestado-EventFLowBudget',
+    'http://localhost:5173' // para desarrollo
+  ],
+  credentials: true
+}));
 
-//conexion a la base de datos de mysql
-const DB =mysql.createConnection({
-    host:'127.0.0.1',
-    user:'root',
-    password:'', 
-    database:'EFB'
-}); 
+app.use(express.json());
 
-DB.connect  ((err)=>{
-    if(err){
-        throw err} 
-        console.log('Conectado a la base de datos');
-        return; 
-    });
+// Tus rutas del API
+app.get('/api/data', (req, res) => {
+  res.json({ message: 'Backend funcionando!' });
+});
 
-    //declarar RUTAS
+// Puerto para producción
+const PORT = process.env.PORT || 3000;
 
-
-    // echamos a andar el servidor escuchado anteriormente el puerto 3306
-    app .listen(port,()=>{
-        console.log(`Servidor escuchando en el puerto ${port}`);
-    });
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en puerto ${PORT}`);
+});

@@ -1,9 +1,11 @@
+// 📄 src/Pages/Dashboard.jsx
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // ✅ Importa el hook de navegación
 import "../Styles/Dashboard.css";
 
 const Dashboard = () => {
-  // Estado para almacenar las estadísticas del dashboard
+  const navigate = useNavigate(); // ✅ Inicializa la navegación
+
   const [stats, setStats] = useState({
     totalPresupuestos: 0,
     presupuestosActivos: 0,
@@ -11,34 +13,31 @@ const Dashboard = () => {
     clientesActivos: 0,
   });
 
-  // Efecto para simular la carga de datos (luego se reemplazará con datos reales)
   useEffect(() => {
-    // Datos de ejemplo para demostración
     setStats({
       totalPresupuestos: 0,
       presupuestosActivos: 0,
       ingresosTotales: 0,
       clientesActivos: 0,
     });
-  }, []); // Array de dependencias vacío = se ejecuta solo al montar el componente
+  }, []);
 
-  // Datos de ejemplo para actividades recientes
   const recentActivities = [
     {
       id: 1,
-      type: "presupuesto", // Tipo de actividad
-      action: "creado", // Acción realizada
-      title: "Boda María y José", // Título descriptivo
-      amount: 2500, // Monto si aplica
-      date: "2024-01-15", // Fecha de la actividad
-      time: "14:30", // Hora de la actividad
+      type: "presupuesto",
+      action: "creado",
+      title: "Boda María y José",
+      amount: 2500,
+      date: "2024-01-15",
+      time: "14:30",
     },
     {
       id: 2,
       type: "cliente",
       action: "agregado",
       title: "Nuevo cliente: Restaurante La Parrilla",
-      amount: null, // null cuando no hay monto
+      amount: null,
       date: "2024-01-15",
       time: "10:15",
     },
@@ -46,7 +45,7 @@ const Dashboard = () => {
       id: 3,
       type: "presupuesto",
       action: "actualizado",
-      title: "Fiesta de 15 años Sofia",
+      title: "Fiesta de 15 años Sofía",
       amount: 1800,
       date: "2024-01-14",
       time: "16:45",
@@ -55,23 +54,20 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
-      {/* Sección de cabecera del dashboard */}
+      {/* Encabezado */}
       <div className="dashboard-header">
         <h1>Dashboard</h1>
         <p>Resumen general de tu negocio</p>
       </div>
 
-      {/* Contenido principal del dashboard */}
       <div className="dashboard-content">
-        {/* Sección de Actividad Reciente */}
+        {/* 🔹 Actividad Reciente */}
         <div className="recent-activity">
           <h2>Actividad Reciente</h2>
           <div className="activity-list">
-            {/* Mapeo de actividades recientes para mostrar cada una */}
             {recentActivities.map((activity) => (
               <div key={activity.id} className="activity-item">
                 <div className="activity-icon">
-                  {/* Ícono dinámico según el tipo de actividad */}
                   <i
                     className={`fas fa-${
                       activity.type === "presupuesto" ? "file-invoice" : "user"
@@ -84,7 +80,6 @@ const Dashboard = () => {
                     {activity.action} - {activity.date} {activity.time}
                   </p>
                 </div>
-                {/* Mostrar monto solo si existe */}
                 {activity.amount && (
                   <div className="activity-amount">${activity.amount}</div>
                 )}
@@ -93,33 +88,43 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Sección de Acciones Rápidas */}
+        {/* 🔹 Acciones Rápidas */}
         <div className="quick-actions">
           <h2>Acciones Rápidas</h2>
           <div className="actions-grid">
-            {/* Botones de acceso rápido a funciones comunes */}
-            <button className="action-btn">
+            <button
+              className="action-btn"
+              onClick={() => navigate("/crear-presupuesto")}
+            >
               <i className="fas fa-plus"></i>
               <span>Nuevo Presupuesto</span>
             </button>
-            <button className="action-btn">
+
+            <button
+              className="action-btn"
+              onClick={() => navigate("/presupuestos")}
+            >
+              <i className="fas fa-list"></i>
+              <span>Ver Presupuestos</span>
+            </button>
+
+            <button
+              className="action-btn"
+              onClick={() => navigate("/empleado")}
+            >
               <i className="fas fa-user-plus"></i>
               <span>Agregar Cliente</span>
             </button>
-            <button className="action-btn">
-              <i className="fas fa-chart-bar"></i>
-              <span>Ver Reportes</span>
-            </button>
-            <button className="action-btn">
+
+            <button className="action-btn" onClick={() => navigate("/admin")}>
               <i className="fas fa-cog"></i>
               <span>Configuración</span>
             </button>
           </div>
         </div>
 
-        {/* Grid de tarjetas de estadísticas */}
+        {/* 🔹 Estadísticas */}
         <div className="stats-grid">
-          {/* Tarjeta: Total de Presupuestos */}
           <div className="stat-card">
             <div className="stat-icon" style={{ background: "#3498db" }}>
               <i className="fas fa-file-invoice-dollar"></i>
@@ -130,7 +135,6 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* Tarjeta: Presupuestos Activos */}
           <div className="stat-card">
             <div className="stat-icon" style={{ background: "#2ecc71" }}>
               <i className="fas fa-check-circle"></i>
@@ -141,7 +145,6 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* Tarjeta: Ingresos Totales */}
           <div className="stat-card">
             <div className="stat-icon" style={{ background: "#f39c12" }}>
               <i className="fas fa-money-bill-wave"></i>
@@ -152,7 +155,6 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* Tarjeta: Clientes Activos */}
           <div className="stat-card">
             <div className="stat-icon" style={{ background: "#e74c3c" }}>
               <i className="fas fa-users"></i>

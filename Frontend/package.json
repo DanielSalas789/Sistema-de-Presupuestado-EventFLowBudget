@@ -1,7 +1,6 @@
 {
   "name": "eventflow-budget",
   "homepage": "https://DanielSalas789.github.io/Sistema-de-Presupuestado-EventFLowBudget",
-  "private": true,
   "version": "0.0.1",
   "type": "module",
   "scripts": {
@@ -13,6 +12,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.78.0",
     "framer-motion": "^12.23.12",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

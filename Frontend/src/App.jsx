@@ -10,6 +10,7 @@ import Sidebar from "./Components/Sidebar";
 import Dashboard from "./Pages/Dashboard";
 import Home from "./Pages/Home";
 import "./Styles/App.css";
+import TestSupabase from "./Components/TestSupabase"; // ✅ importamos el test
 
 import Login from "./Pages/Login";
 import AdminPanel from "./Pages/AdminPanel";
@@ -19,7 +20,7 @@ import Presupuestos from "./Pages/Presupuestos";
 
 function App() {
   const [usuario, setUsuario] = useState(null);
-  const [isCollapsed, setIsCollapsed] = useState(false); // 👈 nuevo estado
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const handleLogin = (tipoUsuario) => {
     setUsuario({ tipo: tipoUsuario });
@@ -45,25 +46,27 @@ function App() {
         <Sidebar
           usuario={usuario}
           onLogout={handleLogout}
-          onToggle={(collapsed) => setIsCollapsed(collapsed)} // 👈 pasamos el estado
+          onToggle={(collapsed) => setIsCollapsed(collapsed)}
         />
 
-        {/* Ajusta el margen dinámicamente */}
+        {/* 🧭 Área principal con rutas dinámicas */}
         <main className={`main-content ${isCollapsed ? "collapsed" : ""}`}>
           <Routes>
             <Route path="/" element={<Home />} />
-
-            {usuario.tipo === "administrador" && (
-              <Route path="/admin" element={<AdminPanel />} />
-            )}
-
-            {usuario.tipo === "empleado" && (
-              <Route path="/empleado" element={<EmpleadoPanel />} />
-            )}
-
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/crear-presupuesto" element={<CrearPresupuesto />} />
             <Route path="/presupuestos" element={<Presupuestos />} />
+
+            {/* 🧪 Ruta de prueba Supabase */}
+            <Route path="/test-supabase" element={<TestSupabase />} />
+
+            {/* Rutas por tipo de usuario */}
+            {usuario.tipo === "administrador" && (
+              <Route path="/admin" element={<AdminPanel />} />
+            )}
+            {usuario.tipo === "empleado" && (
+              <Route path="/empleado" element={<EmpleadoPanel />} />
+            )}
 
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
