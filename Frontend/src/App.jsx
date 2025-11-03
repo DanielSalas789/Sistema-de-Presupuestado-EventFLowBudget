@@ -73,9 +73,6 @@ function App() {
 
             {/* Crear y listar presupuestos */}
 
-            {/* 🔹 Página de prueba Supabase (para depuración) */}
-            <Route path="/test-supabase" element={<TestSupabase />} />
-
             {/* ================== RUTAS POR TIPO DE USUARIO ================== */}
             {usuario.tipo === "administrador" && (
               <Route path="/admin" element={<AdminPanel />} />
