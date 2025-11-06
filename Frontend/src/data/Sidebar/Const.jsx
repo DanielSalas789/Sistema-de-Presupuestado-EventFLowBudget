@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { FaHome, FaHouseUser, FaCalendarDay } from "react-icons/fa";
 import { AiFillEdit, AiFillCalculator } from "react-icons/ai";
-
+import { MdOutlineRoomService } from "react-icons/md";
 /* 
 ===========================================
 🧩 Hook personalizado: useSidebarData
@@ -109,11 +109,19 @@ const useSidebarData = () => {
     },
     {
       type: "single",
+      path: "/Nuestros-Servicios",
+      icon: <MdOutlineRoomService />,
+      label: "Nuestros Servicios",
+      description: "Ver servicios",
+    },
+    {
+      type: "single",
       path: "/crear-presupuesto",
       icon: <AiFillEdit />,
       label: "Crear Presupuesto",
       description: "Nuevo presupuesto",
     },
+
     {
       type: "single",
       path: "/presupuestos",
@@ -162,9 +170,9 @@ const useSidebarData = () => {
   const usuarioMenu = [
     {
       type: "single",
-      path: "/usuario/mis-eventos",
+      path: "/usuario/Calendario",
       icon: <FaCalendarDay />,
-      label: "Mis Eventos",
+      label: "Calendario",
     },
   ];
 

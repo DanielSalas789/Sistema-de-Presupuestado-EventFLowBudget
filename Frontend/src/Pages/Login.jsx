@@ -1,33 +1,64 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "../supabaseClient";
 import "../Styles/Login.css";
 
 export default function Login({ onLogin }) {
   const navigate = useNavigate();
+  const [correo, setCorreo] = useState("");
+  const [password, setPassword] = useState("");
 
-  const doLogin = (tipo) => {
-    onLogin(tipo);
-    navigate("/Home"); // ✅ redirige a la ruta, no al archivo físico
+  const doLogin = async (e) => {
+    e.preventDefault();
+
+    // Iniciar sesión con Supabase Auth
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: correo,
+      password,
+    });
+
+    if (error) {
+      alert("❌ Usuario o contraseña incorrectos");
+      return;
+    }
+
+    // Buscar el rol del usuario
+    const { data: perfil } = await supabase
+      .from("usuarios")
+      .select("rol")
+      .eq("id", data.user.id)
+      .single();
+
+    // Guardamos rol en estado global
+    onLogin(perfil.rol);
+
+    navigate("/dashboard");
   };
 
   return (
     <div className="login-container">
-      <h1>💼 EventFlow Budget</h1>
-      <p>Inicia sesión para acceder al sistema</p>
+      <h1>Iniciar Sesión</h1>
+      <form onSubmit={doLogin}>
+        <input
+          type="email"
+          placeholder="Correo"
+          value={correo}
+          onChange={(e) => setCorreo(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Contraseña"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit">Ingresar</button>
+      </form>
 
-      <div className="login-buttons">
-        <button className="btn-admin" onClick={() => doLogin("administrador")}>
-          Ingresar como Administrador
-        </button>
+      <button onClick={() => navigate("/registro")}>Crear usuario</button>
 
-        <button className="btn-usuario" onClick={() => doLogin("usuario")}>
-          Ingresar como Usuario
-        </button>
-
-        <button className="btn-empleado" onClick={() => doLogin("empleado")}>
-          Ingresar como Empleado de Salón
-        </button>
-      </div>
+      <button onClick={() => navigate("/presupuesto-invitado")}>
+        Presupuesto rápido (sin registrarse)
+      </button>
     </div>
   );
 }

@@ -1,28 +1,23 @@
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
+require('dotenv').config(); // recomendado si usarás variables .env
 
 const app = express();
 
-// Middlewares
 app.use(cors({
   origin: [
-    'https://github.com/DanielSalas789/Sistema-de-Presupuestado-EventFLowBudget',
-    'http://localhost:5173' // para desarrollo
+    'https://danielsalas789.github.io',
+    'https://sistema-de-presupuestado-eventflowbudget.onrender.com'
   ],
   credentials: true
 }));
 
 app.use(express.json());
 
-// Tus rutas del API
+// Ruta de prueba API
 app.get('/api/data', (req, res) => {
-  res.json({ message: 'Backend funcionando!' });
+  res.json({ message: 'Backend funcionando correctamente 😎' });
 });
 
-// Puerto para producción
 const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en puerto ${PORT}`);
-});
+app.listen(PORT, () => console.log(`✅ Backend activo en puerto ${PORT}`));

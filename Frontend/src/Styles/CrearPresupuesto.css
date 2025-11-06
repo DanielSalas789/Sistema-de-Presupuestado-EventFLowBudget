@@ -1,0 +1,223 @@
+/* =======================================================
+   DISEÑO PROFESIONAL — CREAR PRESUPUESTO + RESUMEN
+======================================================= */
+.crear-presupuesto-contenedor {
+    display: flex;
+    gap: 35px;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 45px;
+    background: linear-gradient(135deg, #eef2f6, #ffffff);
+    flex-wrap: wrap;
+    font-family: "Inter", sans-serif;
+}
+
+/* ============= CARD DEL FORMULARIO ============= */
+.crear-presupuesto {
+    flex: 1 1 420px;
+    background: #ffffff;
+    padding: 28px 30px;
+    border-radius: 14px;
+    border: 1px solid #e5eaf0;
+    transition: 0.3s;
+}
+
+.crear-presupuesto:hover {
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.09);
+}
+
+.crear-presupuesto h2 {
+    text-align: center;
+    font-weight: 600;
+    color: #1f2d3d;
+    margin-bottom: 25px;
+}
+
+/* Inputs & Select */
+.presupuesto-form label {
+    display: block;
+    margin-bottom: 18px;
+    color: #3f4d5a;
+    font-weight: 520;
+}
+
+.presupuesto-form input,
+.presupuesto-form select {
+    width: 100%;
+    padding: 9px 12px;
+    margin-top: 7px;
+    border-radius: 10px;
+    border: 1px solid #cfd8e1;
+
+    transition: 0.25s;
+}
+
+.presupuesto-form input:focus,
+.presupuesto-form select:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.25);
+}
+
+/* Fieldset */
+.presupuesto-form fieldset {
+    border: 1px dashed #bcc7d3;
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 20px;
+}
+
+.presupuesto-form legend {
+    color: #1f2d3d;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.checkbox {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+/* Botón */
+.presupuesto-form button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #4aa3f7, #1f85e7);
+    border: none;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.25s;
+    font-size: 15px;
+}
+
+.presupuesto-form button:hover {
+    filter: brightness(1.08);
+}
+
+/* ==================== ASIDE ==================== */
+.aside-resumen {
+    flex: 0 1 340px;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 25px;
+    border: 1px solid #e5eaf0;
+    position: sticky;
+    top: 35px;
+    transition: 0.3s;
+}
+
+.aside-resumen:hover {
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.07);
+}
+
+.aside-resumen h3 {
+    color: #1f2d3d;
+    border-left: 5px solid #3498db;
+    padding-left: 10px;
+    margin-bottom: 18px;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.aside-item {
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    color: #3f4d5a;
+    font-size: 14px;
+}
+
+/* Badges de servicios */
+.servicios-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.servicio-tag {
+    background: #ecf5ff;
+    color: #3779d8;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* Total */
+.aside-resumen h2 {
+    margin-top: 15px;
+    text-align: right;
+    font-size: 26px;
+    color: #27ae60;
+    font-weight: 700;
+    animation: subir 0.35s ease-out;
+}
+
+@keyframes subir {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+/* ======= RESPONSIVE ======= */
+@media (max-width: 768px) {
+    .crear-presupuesto-contenedor {
+        flex-direction: column;
+    }
+
+    .aside-resumen {
+        position: static;
+        width: 100%;
+    }
+}
+
+.pago-opciones {
+    margin-top: 15px;
+    border-top: 2px dashed #e0e7ee;
+    padding-top: 15px;
+}
+
+.pago-opciones h4 {
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #1f2d3d;
+}
+
+.btn-tarjeta,
+.btn-transferencia {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s;
+}
+
+.btn-tarjeta {
+    background: #1f85e7;
+    color: white;
+}
+
+.btn-tarjeta:hover {
+    background: #1769b9;
+}
+
+.btn-transferencia {
+    background: #27ae60;
+    color: white;
+}
+
+.btn-transferencia:hover {
+    background: #1f8c4c;
+}

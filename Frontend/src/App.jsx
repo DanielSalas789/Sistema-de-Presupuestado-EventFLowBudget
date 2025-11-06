@@ -11,6 +11,8 @@ import {
 import Sidebar from "./Components/sidebar";
 import Dashboard from "./Pages/Dashboard";
 import Home from "./Pages/Home";
+import NuestrosServicios from "./Pages/Nuestros-Servicios";
+import CrearPresupuesto from "./Components/CrearPresupuesto";
 
 // ✅ Componente de prueba de Supabase
 
@@ -70,9 +72,10 @@ function App() {
 
             {/* Panel general con resumen, estadísticas y Supabase */}
             <Route path="/dashboard" element={<Dashboard />} />
-
-            {/* Crear y listar presupuestos */}
-
+            {/* Página de Nuestros Servicios */}
+            <Route path="/Nuestros-Servicios" element={<NuestrosServicios />} />
+            {/* Crear presupuestos Personalizado */}
+            <Route path="/crear-presupuesto" element={<CrearPresupuesto />} />
             {/* ================== RUTAS POR TIPO DE USUARIO ================== */}
             {usuario.tipo === "administrador" && (
               <Route path="/admin" element={<AdminPanel />} />
