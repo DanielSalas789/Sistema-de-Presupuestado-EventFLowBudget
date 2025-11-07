@@ -1,64 +1,78 @@
+// src/Pages/Login.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../supabaseClient";
 import "../Styles/Login.css";
+import Registro from "./Registro";
 
 export default function Login({ onLogin }) {
   const navigate = useNavigate();
-  const [correo, setCorreo] = useState("");
-  const [password, setPassword] = useState("");
+  const [selectedRole, setSelectedRole] = useState(null);
 
-  const doLogin = async (e) => {
-    e.preventDefault();
+  const handleQuickLogin = (role) => {
+    // Simulación de login exitoso
+    console.log(`✅ Login rápido como: ${role}`);
 
-    // Iniciar sesión con Supabase Auth
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: correo,
-      password,
-    });
+    // Llamar a la función de login del App.jsx
+    onLogin(role);
 
-    if (error) {
-      alert("❌ Usuario o contraseña incorrectos");
-      return;
+    // Redirigir según el rol
+    switch (role) {
+      case "admin":
+        navigate("/admin");
+        break;
+      case "empleado":
+        navigate("/empleado");
+        break;
+      case "invitado":
+        navigate("/presupuesto-invitado");
+        break;
+      default:
+        navigate("/dashboard");
     }
-
-    // Buscar el rol del usuario
-    const { data: perfil } = await supabase
-      .from("usuarios")
-      .select("rol")
-      .eq("id", data.user.id)
-      .single();
-
-    // Guardamos rol en estado global
-    onLogin(perfil.rol);
-
-    navigate("/dashboard");
   };
 
   return (
     <div className="login-container">
-      <h1>Iniciar Sesión</h1>
-      <form onSubmit={doLogin}>
-        <input
-          type="email"
-          placeholder="Correo"
-          value={correo}
-          onChange={(e) => setCorreo(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Ingresar</button>
-      </form>
+      <div className="login-card">
+        <h1>🚀 Login de Prueba</h1>
+        <p className="login-subtitle">
+          Selecciona un rol para entrar rápidamente
+        </p>
 
-      <button onClick={() => navigate("/registro")}>Crear usuario</button>
+        <div className="button-group">
+          <button
+            className={`login-btn admin-btn ${
+              selectedRole === "admin" ? "selected" : ""
+            }`}
+            onClick={() => handleQuickLogin("admin")}
+          >
+            👨‍💼 Administrador
+          </button>
 
-      <button onClick={() => navigate("/presupuesto-invitado")}>
-        Presupuesto rápido (sin registrarse)
-      </button>
+          <button
+            className={`login-btn user-btn ${
+              selectedRole === "empleado" ? "selected" : ""
+            }`}
+            onClick={() => handleQuickLogin("empleado")}
+          >
+            👤 Empleado
+          </button>
+
+          <button
+            className={`login-btn guest-btn ${
+              selectedRole === "invitado" ? "selected" : ""
+            }`}
+            onClick={() => handleQuickLogin("invitado")}
+          >
+            🎯 Invitado
+          </button>
+        </div>
+
+        {/* Opción para ir al registro si aún lo necesitas */}
+        <button className="secondary-btn" onClick={() => navigate("/registro")}>
+          📝 Ir al Registro (Formulario completo)
+        </button>
+      </div>
     </div>
   );
 }

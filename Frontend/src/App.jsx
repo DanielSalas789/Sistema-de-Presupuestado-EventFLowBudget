@@ -1,5 +1,5 @@
 // 📄 src/App.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -14,8 +14,10 @@ import Home from "./Pages/Home";
 import NuestrosServicios from "./Pages/Nuestros-Servicios";
 import CrearPresupuesto from "./Components/CrearPresupuesto";
 
-// ✅ Componente de prueba de Supabase
-import SupabaseTest from "./data/supabaseClient";
+// ✅ CORREGIDO: Importa solo la variable supabase
+// En App.jsx - usa esta importación:
+import { supabase } from "./data/supabaseClient.js"; // 👈 Agrega .js// 👈 Sin el "data/" si está en src/
+
 // 👥 Rutas según tipo de usuario
 import Login from "./Pages/Login";
 import AdminPanel from "./Pages/AdminPanel";
@@ -24,28 +26,43 @@ import EmpleadoPanel from "./Pages/EmpleadoPanel";
 import "./Styles/App.css";
 
 function App() {
+  // ================== PRUEBA SUPABASE
+  //  ==================
+  // ✅ Verificar conexión con Supabase al cargar
+  useEffect(() => {
+    const testSupabase = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("presupuestos")
+          .select("*")
+          .limit(1);
+        if (error) throw error;
+        console.log("✅ Conexión a Supabase exitosa");
+      } catch (error) {
+        console.error("❌ Error conectando a Supabase:", error.message);
+      }
+    };
+
+    testSupabase();
+  }, []);
   // ================== ESTADOS PRINCIPALES ==================
-  const [usuario, setUsuario] = useState(null); // Guarda el usuario actual y su rol
-  const [isCollapsed, setIsCollapsed] = useState(false); // Controla el colapso del sidebar
+  const [usuario, setUsuario] = useState(null);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   // ================== FUNCIONES DE SESIÓN ==================
-  // 🔹 Cuando el usuario inicia sesión, guardamos su tipo (admin o empleado)
   const handleLogin = (tipoUsuario) => {
     setUsuario({ tipo: tipoUsuario });
   };
 
-  // 🔹 Cierra sesión (borra usuario)
   const handleLogout = () => {
     setUsuario(null);
   };
 
   // ================== VALIDACIÓN DE SESIÓN ==================
-  // Si el usuario NO ha iniciado sesión, se muestra solo el Login
   if (!usuario) {
     return (
       <Router>
         <Routes>
-          {/* El wildcard (*) asegura que cualquier ruta redirige al login */}
           <Route path="*" element={<Login onLogin={handleLogin} />} />
         </Routes>
       </Router>
@@ -53,30 +70,22 @@ function App() {
   }
 
   // ================== APLICACIÓN PRINCIPAL ==================
-  // Si el usuario SÍ ha iniciado sesión, mostramos todo el sistema
   return (
     <Router>
       <div className="app">
-        {/* 📌 Sidebar con control de sesión y colapso */}
         <Sidebar
           usuario={usuario}
           onLogout={handleLogout}
           onToggle={(collapsed) => setIsCollapsed(collapsed)}
         />
 
-        {/* ================== ÁREA CENTRAL ================== */}
         <main className={`main-content ${isCollapsed ? "collapsed" : ""}`}>
           <Routes>
-            {/* Página principal */}
             <Route path="/" element={<Home />} />
-
-            {/* Panel general con resumen, estadísticas y Supabase */}
             <Route path="/dashboard" element={<Dashboard />} />
-            {/* Página de Nuestros Servicios */}
             <Route path="/Nuestros-Servicios" element={<NuestrosServicios />} />
-            {/* Crear presupuestos Personalizado */}
             <Route path="/crear-presupuesto" element={<CrearPresupuesto />} />
-            {/* ================== RUTAS POR TIPO DE USUARIO ================== */}
+
             {usuario.tipo === "administrador" && (
               <Route path="/admin" element={<AdminPanel />} />
             )}
@@ -85,7 +94,6 @@ function App() {
               <Route path="/empleado" element={<EmpleadoPanel />} />
             )}
 
-            {/* Cualquier ruta no válida redirige a inicio */}
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </main>
