@@ -32,12 +32,32 @@ const useSidebarData = () => {
   }); // Info del usuario actual
 
   // === Cargar usuario desde localStorage ===
+  // === Cargar usuario desde localStorage (con confirmación automática) ===
   useEffect(() => {
     try {
       const userData = JSON.parse(localStorage.getItem("user"));
-      if (userData) setUsuario(userData);
+      if (userData) {
+        setUsuario(userData);
+
+        // ✅ Confirmación automática al detectar sesión activa
+        Swal.fire({
+          toast: true,
+          position: "top-end",
+          icon: "success",
+          title: `Bienvenido de nuevo, ${userData.nombre}`,
+          showConfirmButton: false,
+          timer: 1200,
+        });
+      }
     } catch (error) {
       console.error("❌ Error al leer usuario desde localStorage:", error);
+
+      // ✅ Mensaje si hay error
+      Swal.fire({
+        icon: "error",
+        title: "Error al cargar datos",
+        text: "No se pudo recuperar la sesión.",
+      });
     }
   }, []);
 
@@ -175,6 +195,20 @@ const useSidebarData = () => {
       label: "Calendario",
     },
   ];
+  // ⚠️ Si no hay usuario cargado, evitar romper la app
+  if (!usuario || !usuario.tipo) {
+    console.warn("⚠️ Usuario no disponible, usando menú base");
+    return {
+      isCollapsed,
+      openSubmenu,
+      usuario,
+      menuItems: baseMenu,
+      toggleSidebar: handleToggleSidebar,
+      toggleSubmenu,
+      handleLogout,
+      isActive,
+    };
+  }
 
   // --- Construcción dinámica del menú según rol ---
   let menuItems = [...baseMenu];

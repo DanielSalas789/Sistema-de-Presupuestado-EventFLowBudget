@@ -7,7 +7,9 @@ const app = express();
 app.use(cors({
   origin: [
     'https://danielsalas789.github.io',
-    'https://sistema-de-presupuestado-eventflowbudget.onrender.com'
+    'https://sistema-de-presupuestado-eventflowbudget.onrender.com',
+    'http://localhost:5173', // Para desarrollo local con Vite
+    'http://127.0.0.1:5173'  // Alternativa para desarrollo local
   ],
   credentials: true
 }));

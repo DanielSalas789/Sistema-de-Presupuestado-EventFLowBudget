@@ -15,7 +15,7 @@ import NuestrosServicios from "./Pages/Nuestros-Servicios";
 import CrearPresupuesto from "./Components/CrearPresupuesto";
 
 // ✅ Componente de prueba de Supabase
-
+import SupabaseTest from "./data/supabaseClient";
 // 👥 Rutas según tipo de usuario
 import Login from "./Pages/Login";
 import AdminPanel from "./Pages/AdminPanel";
