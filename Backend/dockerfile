@@ -1,0 +1,17 @@
+# Imagen base correcta
+FROM node:20-alpine AS builder
+# Directorio de trabajo
+WORKDIR /app
+
+# Instalar dependencias
+COPY package*.json ./
+RUN npm install
+
+# Copiar el resto del backend
+COPY . .
+
+# Exponer el puerto del backend
+EXPOSE 3000
+
+# Ejecutar backend
+CMD ["npm", "start"]

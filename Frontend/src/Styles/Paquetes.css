@@ -1,0 +1,183 @@
+/* ===== CONTENEDOR GENERAL ===== */
+.paquetes-container {
+    padding: 40px 50px;
+    color: #1d2a32;
+    animation: fadeIn 0.6s ease;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Título principal */
+
+
+/* Texto secundario */
+.sub-text {
+    font-size: 16px;
+    color: #6d7980;
+    margin-bottom: 40px;
+    text-align: center;
+    line-height: 1.5;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ===== GRID DE PAQUETES ===== */
+.paquetes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+    padding-bottom: 80px;
+}
+
+/* ===== TARJETA DE PAQUETE ===== */
+.paquete-card {
+    position: relative;
+    overflow: hidden;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.paquete-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+    border-color: #007ba7;
+}
+
+/* Línea de color arriba en hover */
+.paquete-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #007ba7, #00b4d8);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.paquete-card:hover::before {
+    transform: scaleX(1);
+}
+
+/* ===== IMAGEN ===== */
+.img-wrapper {
+    overflow: hidden;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    height: 200px;
+    background: #f8f9fa;
+}
+
+.paquete-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.paquete-card:hover .paquete-img {
+    transform: scale(1.08);
+}
+
+/* ===== TEXTO ===== */
+.paquete-card h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 8px 0;
+    color: #1d2a32;
+}
+
+.desc {
+    color: #5d6970;
+    font-size: 14px;
+    margin-bottom: 12px;
+    line-height: 1.5;
+    flex-grow: 1;
+}
+
+.precio {
+    font-size: 20px;
+    margin-top: 8px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #007ba7, #00b4d8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ===== BOTÓN ===== */
+.btn-cotizar {
+    margin-top: 16px;
+    width: 100%;
+    padding: 12px 0;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(135deg, #007ba7, #00b4d8);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-cotizar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-cotizar:hover::before {
+    left: 100%;
+}
+
+.btn-cotizar:hover {
+    background: linear-gradient(135deg, #005f80, #0077b6);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 123, 167, 0.3);
+}
+
+/* ===== ANIMACIÓN ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .paquetes-container {
+        padding: 25px 20px;
+    }
+
+    .paquetes-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding-bottom: 50px;
+    }
+
+    .img-wrapper {
+        height: 180px;
+    }
+}

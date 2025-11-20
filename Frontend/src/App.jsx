@@ -11,8 +11,8 @@ import {
 import Sidebar from "./Components/sidebar";
 import Dashboard from "./Pages/Dashboard";
 import Home from "./Pages/Home";
-import NuestrosServicios from "./Pages/Nuestros-Servicios";
-import CrearPresupuesto from "./Components/CrearPresupuesto";
+import NuestrosServicios from "./Pages/Paquetes.jsx";
+import CrearPresupuesto from "./Pages/CrearPresupuesto";
 
 // ✅ CORREGIDO: Importa solo la variable supabase
 // En App.jsx - usa esta importación:

@@ -1,56 +1,102 @@
-.servicios-container {
+/* ====== SECCIÓN GENERAL ====== */
+.servicios-section {
   padding: 60px 8%;
+  background: linear-gradient(to bottom right, #c5c5c5, #0545a4);
+  display: flex;
+  justify-content: center;
+  border-radius: 12px;
+  animation: fadeIn 2s ease-in-out;
+}
+
+.servicios-container {
+  max-width: 1400px;
+  width: 100%;
+}
+
+/* ====== TÍTULO ====== */
+.servicios-titulo {
+  font-weight: 700;
+  font-size: 2.4rem;
+  margin-bottom: 45px;
+  color: #1e1e1e;
   text-align: center;
-  animation: fadeIn 0.7s ease-in-out;
+  letter-spacing: 0.5px;
 }
 
-.sub-text {
-  font-size: 1.1rem;
-  margin-bottom: 40px;
-  color: #666;
-}
-
+/* ====== GRID ====== */
 .servicios-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 35px;
+  margin-bottom: 55px;
 }
 
+/* ====== CARDS ====== */
 .servicio-card {
   background: #ffffff;
-  border-radius: 16px;
-  padding: 18px;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s, box-shadow 0.3s;
-  cursor: pointer;
+  border-radius: 18px;
+  padding: 28px 24px;
+  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.07);
+  border: 1px solid rgba(230, 230, 230, 0.8);
+  transition: transform .35s ease, box-shadow .35s ease;
 }
 
 .servicio-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0px 6px 28px rgba(0, 0, 0, 0.14);
+  transform: translateY(-8px);
+  box-shadow: 0px 14px 40px rgba(0, 0, 0, 0.14);
 }
 
-.servicio-img {
-  width: 100%;
-  height: 170px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 18px;
-}
-
-.desc {
-  font-size: 0.95rem;
-  color: #444;
-  margin: 10px 0;
-}
-
-.precio {
-  margin-top: 10px;
-  font-weight: bold;
-  font-size: 1.1rem;
+/* Icono dentro de cada card */
+.icono-servicio {
+  font-size: 2.7rem;
   color: #3a7bd5;
+  margin-bottom: 15px;
 }
 
+.servicio-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #222;
+}
+
+.servicio-card p {
+  font-size: 0.96rem;
+  color: #555;
+  line-height: 1.45rem;
+}
+
+/* ====== ASIDE ====== */
+.servicios-aside {
+  background: #f8fbff;
+  border-left: 5px solid #3a7bd5;
+  padding: 24px 28px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.05);
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.servicios-aside h3 {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #215a9c;
+}
+
+.servicios-aside ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.servicios-aside li {
+  margin-bottom: 9px;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+/* ====== ANIMACIÓN ====== */
 @keyframes fadeIn {
   from {
     opacity: 0;

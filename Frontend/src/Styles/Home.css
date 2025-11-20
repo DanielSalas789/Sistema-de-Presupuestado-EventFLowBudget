@@ -22,6 +22,7 @@
 /* Capa semitransparente para oscurecer la imagen y resaltar el texto */
 .banner-overlay {
     background-color: rgba(0, 0, 0, 0.5);
+    color: white;
     width: 100%;
     height: 100%;
     display: flex;
@@ -29,7 +30,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    color: white;
+
     padding: 0 20px;
 }
 
@@ -38,6 +39,7 @@
     font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 15px;
+    color: #ffffff;
 }
 
 /* Subtítulo del banner */
